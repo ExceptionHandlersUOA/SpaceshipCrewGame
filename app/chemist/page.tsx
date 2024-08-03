@@ -10,7 +10,7 @@ export default function Page({ correctSequence }: { correctSequence: string }) {
 
     const handleButtonClick = (element: string) => {
         if (temporaryCorrectSequence === sequence + element) {
-            // Increase fuel/electricity
+            // Increase fuel, reduce water
             setSequence(sequence + element + " (correct sequence!)");
         } else if (temporaryCorrectSequence.startsWith(sequence + element)) {
             setSequence(sequence + element);
@@ -21,29 +21,19 @@ export default function Page({ correctSequence }: { correctSequence: string }) {
 
     return (
         <main className="main">
-            <div className="description">
+            <h1>CHEMIST</h1>
+            <div className="elementtube">
                 <p>
-                <ElementTube sequence={sequence} />
+                    Sequence: <ElementTube sequence={sequence} />
                 </p>
-                {/* <div>
-                    <p>I'm a thing in the top right</p>
-                </div> */}
             </div>
 
             <div className="center">
-                <div>
-                    
-                </div>
-
                 <div>
                     <button onClick={() => handleButtonClick("H")}>Hydrogen</button>
                     <button onClick={() => handleButtonClick("O")}>Oxygen</button>
                 </div>
 
-            </div>
-
-            <div className="grid">
-                classname grid
             </div>
         </main>
     );
