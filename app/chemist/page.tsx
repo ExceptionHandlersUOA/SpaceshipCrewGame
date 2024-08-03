@@ -23,9 +23,7 @@ export default function Page({ correctSequence }: { correctSequence: string }) {
         <div className="page">
             <h1>CHEMIST</h1>
             <div className="elementtube">
-                <p>
-                    Sequence: <ElementTube sequence={sequence} />
-                </p>
+                <ElementTube sequence={sequence} />
             </div>
             <div>
                 <button onClick={() => handleButtonClick("H")}>Hydrogen</button>
