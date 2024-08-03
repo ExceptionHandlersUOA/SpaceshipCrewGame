@@ -1,7 +1,10 @@
-.container {
-    background-color: red;
-}
-
-.p {
-    color: orange;
+.bg {
+    background-color: darkgray;
+    width: auto;
+    height: auto;
+    font-size: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 25px;
+    color: white;
 }

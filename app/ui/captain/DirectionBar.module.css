@@ -5,4 +5,10 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
-  };
+}
+
+.section {
+  flex: 1;
+  height: 100%;
+  border: 1px solid #ccc;
+}

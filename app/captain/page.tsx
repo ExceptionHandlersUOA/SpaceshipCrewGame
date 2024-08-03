@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DirectionBar from "../ui/captain/DirectionBar";
 import TextField from "../ui/captain/TextField";
-import "./styles.css"
+import styles from "./page.module.css"
 import ResourceBar from "../ui/captain/ResourceBar";
 
 
@@ -17,11 +17,11 @@ export default function Page() {
     }
 
     return (
-        <div className="page">
+        <div className={styles.page}>
             <DirectionBar redSection={0} />
             <TextField text={"OHHOHOO"} />
             <ResourceBar resource={"water"} value={resourceAmount} />
-            <button onClick={handleClick} className="button">Progress</button>
+            <button onClick={handleClick} className={styles.button}>Progress</button>
         </div>
     );
 }

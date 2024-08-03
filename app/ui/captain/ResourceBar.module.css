@@ -28,7 +28,7 @@
 
 .img {
     border-radius: 20%;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .main {
@@ -38,6 +38,6 @@
     justify-content: center;
     align-items: center;
     background-color: darkgray;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 10px 10px 10px;
     border-radius: 25px;
 }

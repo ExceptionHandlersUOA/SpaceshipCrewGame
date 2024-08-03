@@ -1,8 +1,11 @@
 .page {
+    width: 100%;
+    height: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
     row-gap: 50px;
+    background-color: #8b948d;
 }
 
 .button {
