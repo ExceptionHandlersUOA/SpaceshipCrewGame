@@ -5,7 +5,8 @@
     align-items: center;
     flex-direction: column;
     row-gap: 50px;
-    background-color: #8b948d;
+    /* Background subject to change */
+    background-image: radial-gradient(white, #403e3b);
 }
 
 .button {
