@@ -20,21 +20,18 @@ export default function Page({ correctSequence }: { correctSequence: string }) {
     };
 
     return (
-        <main className="main">
+        <div className="page">
             <h1>CHEMIST</h1>
             <div className="elementtube">
                 <p>
                     Sequence: <ElementTube sequence={sequence} />
                 </p>
             </div>
-
-            <div className="center">
-                <div>
-                    <button onClick={() => handleButtonClick("H")}>Hydrogen</button>
-                    <button onClick={() => handleButtonClick("O")}>Oxygen</button>
-                </div>
-
+            <div>
+                <button onClick={() => handleButtonClick("H")}>Hydrogen</button>
+                <button onClick={() => handleButtonClick("O")}>Oxygen</button>
             </div>
-        </main>
+
+        </div>
     );
 }
