@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    width: 40%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.section {
+  flex: 1;
+  height: 100%;
+  border: 1px solid #ccc;
+}

@@ -1,0 +1,10 @@
+.bg {
+    background-color: white;
+    width: auto;
+    height: auto;
+    font-size: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 25px;
+    color: black;
+}
