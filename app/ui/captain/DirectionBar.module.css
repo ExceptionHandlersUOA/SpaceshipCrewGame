@@ -1,0 +1,16 @@
+.sectionRed {
+    width: 150px;
+    background-color: red;
+}
+
+.sectionWhite {
+    width: 150px;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 100px
+}
