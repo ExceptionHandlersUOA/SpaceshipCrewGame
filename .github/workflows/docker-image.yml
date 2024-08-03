@@ -27,3 +27,6 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: "🚀 Published Frontend 🚀"
+          
+      - name: Purge Camo
+        uses: kevincobain2000/action-camo-purge@v1
