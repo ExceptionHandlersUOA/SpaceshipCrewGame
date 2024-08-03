@@ -29,8 +29,8 @@ If you'd like to contribute to this project, please read [CODE_OF_CONDUCT.md](CO
 
 This project consists of the following components:
 
-* Mobile friendly web-ui for players
-* A desktop app for the invite code
+* A mobile friendly web-ui for players
+* A desktop app for the invite code and stats
 
 ## Commemorations
 
