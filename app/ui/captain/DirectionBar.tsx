@@ -1,16 +1,21 @@
+import React from 'react';
 import styles from "./DirectionBar.module.css"
 
-export default function DirectionBar() {
-    return (
-        <div>
-            <ul className={styles.container}>
-                <li className={styles.sectionWhite}>
-                </li>
-                <li className={styles.sectionRed}>
-                </li>
-                <li className={styles.sectionWhite}>
-                </li>
-            </ul>
-        </div>
-    );
-}
+const ThreeSectionBar = ({ redSection }: { redSection: number }) => {
+  const getSectionStyle = (sectionIndex: number) => ({
+    flex: 1,
+    height: '100%',
+    backgroundColor: sectionIndex === redSection ? 'red' : 'white',
+    border: '1px solid #ccc',
+  });
+
+  return (
+    <div className={styles.container}>
+      <div style={getSectionStyle(0)}></div>
+      <div style={getSectionStyle(1)}></div>
+      <div style={getSectionStyle(2)}></div>
+    </div>
+  );
+};
+
+export default ThreeSectionBar;

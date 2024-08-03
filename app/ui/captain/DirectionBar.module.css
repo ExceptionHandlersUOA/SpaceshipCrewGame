@@ -1,16 +1,8 @@
-.sectionRed {
-    width: 150px;
-    background-color: red;
-}
-
-.sectionWhite {
-    width: 150px;
-    background-color: white;
-}
-
 .container {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 100px
-}
+    width: 50%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+  };

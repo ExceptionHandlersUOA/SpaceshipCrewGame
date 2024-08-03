@@ -2,4 +2,11 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    row-gap: 50px;
+}
+
+.button {
+    background-color: blue;
+    width: 150px;
+    height: 100px;
 }

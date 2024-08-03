@@ -1,0 +1,24 @@
+.container {
+    height: 20px;
+    width: 50%;
+    background-color: #e0e0de;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.filler {
+    height: 100%;
+    background-color: #007bff;
+    text-align: center;
+    border-radius: inherit;
+    transition: width 0.2s ease-in;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.label {
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+}
