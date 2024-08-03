@@ -7,7 +7,7 @@
     <h3>A web mobile/desktop client for the UOA space-themed hackathon, written in Next.JS!</h3>
     <p>
         <a href="https://github.com/ExceptionHandlersUOA/SpaceshipCrewGameNew/blob/master/LICENSE.md">
-            <img alt="License" src="https://img.shields.io/github/license/exceptionhandlersuoa/spaceshipcrewgamenew?label=License&style=for-the-badge">
+            <img alt="License" src="https://img.shields.io/github/license/exceptionhandlersUOA/spaceshipcrewgamenew?label=License&style=for-the-badge">
         </a>
         <a href="https://github.com/ExceptionHandlersUOA/SpaceshipCrewGameNew">
             <img alt="Stars" src="https://img.shields.io/github/stars/exceptionhandlersuoa/spaceshipcrewgamenew?color=gold&style=for-the-badge">
