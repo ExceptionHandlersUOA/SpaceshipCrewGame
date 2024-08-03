@@ -1,27 +1,32 @@
 'use client'
 
+import { useState } from 'react';
 import { ElementTube } from '../ui/chemist/elementTube';
 import './page.css';
 
 export default function Page() {
+    const [sequence, setSequence] = useState("Sequence: ");
+
     const handleButtonClick = (element: string) => {
-        console.log(element);
+        setSequence(sequence + element);
     };
 
     return (
         <main className="main">
             <div className="description">
                 <p>
-                    Get started by editing&nbsp;
-                    <code className="code">app/page.tsx</code>
+                <ElementTube sequence={sequence} />
                 </p>
-                <div>
+                {/* <div>
                     <p>I'm a thing in the top right</p>
-                </div>
+                </div> */}
             </div>
 
             <div className="center">
-                <ElementTube />
+                <div>
+                    
+                </div>
+
                 <div>
                     <button onClick={() => handleButtonClick("H")}>Hydrogen</button>
                     <button onClick={() => handleButtonClick("O")}>Oxygen</button>
