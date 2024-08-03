@@ -2,26 +2,37 @@
 
 import React from 'react';
 import styles from './ResourceBar.module.css';
-import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBolt, faDroplet, faGasPump } from '@fortawesome/free-solid-svg-icons'
+
 
 export enum Resources {
-  Water = "water",
-  Fuel = "fuel",
-  Electricity = "electricity"
+  Water,
+  Fuel,
+  Electricity
 }
 
 
 export default function ProgressBar({ resource, value }: { resource: Resources, value: number }) {
-  console.log(resource)
-  
   const getGradient = () => {
     switch(resource) {
       case Resources.Water:
         return {backgroundImage: 'linear-gradient(to right, lightblue, darkblue)'}
       case Resources.Fuel:
-        return {backgroundImage: 'linear-gradient(to right, lightyellow, yellow, orange, red, brown)'}
+        return {backgroundImage: 'linear-gradient(to right, yellow, orange, red, brown)'}
       case Resources.Electricity:
         return {backgroundImage: 'linear-gradient(to right, lightyellow, yellow, gold, darkgoldenrod)'}
+    }
+  };
+
+  const getIcon = () => {
+    switch(resource) {
+      case Resources.Water:
+        return <FontAwesomeIcon className={styles.icon} icon={faDroplet} style={{color: "#1a79c1",}} />
+      case Resources.Fuel:
+        return <FontAwesomeIcon className={styles.icon} icon={faGasPump} style={{color: "#131416",}} />
+      case Resources.Electricity:
+        return <FontAwesomeIcon className={styles.icon} icon={faBolt} style={{color: "#FFD43B",}} />
     }
   };
 
@@ -32,13 +43,7 @@ export default function ProgressBar({ resource, value }: { resource: Resources, 
           <span className={styles.label}>{`${value}`}</span>
         </div>
       </div>
-      {/* <Image
-        src={} // Change icon src
-        width={50}
-        height={50}
-        className={styles.img}
-        alt="Water Resource Icon"
-      /> */}
+      {getIcon()}
     </main>
     
   );

@@ -25,7 +25,7 @@ export default function Page() {
         <div className={styles.page}>
             <DirectionBar redSection={2} />
             <TextField text={"OHHOHOO"} />
-            <ResourceBar resource={Resources.Water} value={resourceAmount} />
+            <ResourceBar resource={Resources.Electricity} value={resourceAmount} />
             {/* Debugging buttons for resource bar  */}
                 {/* <button onClick={increment} className={styles.button}>INCREMENT</button>
                 <button onClick={decrement} className={styles.button}>DECREMENT</button>  */}

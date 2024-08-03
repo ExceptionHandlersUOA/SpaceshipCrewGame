@@ -2,10 +2,10 @@
     height: 30px;
     width: 80%;
     background-color: #e0e0de;
-    border-radius: 5px;
+    border-radius: 2px;
     overflow: hidden;
     border-style: solid;
-    border-width: 2px;
+    border-width: 3px;
     border-color: #403e3b;
 }
 
@@ -27,8 +27,9 @@
     font-weight: bold;
 }
 
-.img {
-    border-radius: 20%;
+.icon {
+    width: 30px;
+    height: 30px;
     margin-left: 10px;
 }
 
