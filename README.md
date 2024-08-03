@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+<div align="center">
+    <h1>
+        <img width="30%" src="LogoBanner.jpg?raw=true" style="align="center">
+        <br>
+    </h1>
+    <h3>A web mobile/desktop client for the UOA space-themed hackathon, written in Next.JS!</h3>
+    <p>
+        <a href="https://github.com/ExceptionHandlersUOA/SpaceshipCrewGameNew/blob/master/LICENSE.md">
+            <img alt="License" src="https://img.shields.io/github/license/exceptionhandlersuoa/spaceshipcrewgamenew?label=License&style=for-the-badge">
+        </a>
+        <a href="https://github.com/ExceptionHandlersUOA/SpaceshipCrewGameNew">
+            <img alt="Stars" src="https://img.shields.io/github/stars/exceptionhandlersuoa/spaceshipcrewgamenew?color=gold&style=for-the-badge">
+        </a>
+    </p>
+    <h4>This server works with the assosiated <a href="https://github.com/ExceptionHandlersUOA/SpaceShipCrewServer">SpaceShipCrewServer</a> project.</h4>
+    <h5>Automatically deploys via Docker w/ CI/CD integration. NB: has hardcoded URLs for CORS that must be changed when deploying.</h4>
+</div>
 
-First, run the development server:
+### Information
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This is the client side application for our spaceship hackathon project! The aim of the project was to build a jackbox-style party game, with the intention of it to be fun, collaborative, and exciting!
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contributing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+If you'd like to contribute to this project, please read [CONTRIBUTING.md](CONTRIBUTING.md).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Architecture
 
-## Learn More
+This project consists of the following components:
 
-To learn more about Next.js, take a look at the following resources:
+* Mobile friendly web-ui for players
+* A desktop app for the invite code
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Commemorations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Logo by <a href=" https://www.vectorportal.com" >Vectorportal.com</a>,  <a class="external text" href="https://creativecommons.org/licenses/by/4.0/" >CC BY</a>
