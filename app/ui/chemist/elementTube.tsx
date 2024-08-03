@@ -1,6 +1,6 @@
 export function ElementTube({ sequence }: { sequence: string }) {
     return (
-        <p>{sequence}</p>
+        <p>Sequence: {sequence}</p>
     );
 }
 
