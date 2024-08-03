@@ -23,7 +23,7 @@ This is the client side application for our spaceship hackathon project! The aim
 
 ## Contributing
 
-If you'd like to contribute to this project, please read [CONTRIBUTING.md](CONTRIBUTING.md).
+If you'd like to contribute to this project, please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ## Architecture
 
