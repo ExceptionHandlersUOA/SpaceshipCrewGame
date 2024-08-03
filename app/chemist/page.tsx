@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { ElementTube } from '../ui/chemist/elementTube';
 import './page.css';
 
-export default function Page({ correctSequence }: { correctSequence: string }) {
+export default function Page() {
     const temporaryCorrectSequence = "HOHOHO"; // replace with correctSequence
+    // removed from Page() props:  { correctSequence }: { correctSequence: string }
     const [sequence, setSequence] = useState("");
 
     const handleButtonClick = (element: string) => {
