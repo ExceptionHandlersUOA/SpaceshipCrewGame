@@ -13,8 +13,8 @@
             <img alt="Stars" src="https://img.shields.io/github/stars/exceptionhandlersuoa/spaceshipcrewgamenew?color=gold&style=for-the-badge">
         </a>
     </p>
-    <h4>This server works with the assosiated <a href="https://github.com/ExceptionHandlersUOA/SpaceShipCrewServer">SpaceShipCrewServer</a> project.</h4>
-    <h5>Automatically deploys via Docker w/ CI/CD integration. NB: has hardcoded URLs for CORS that must be changed when deploying.</h4>
+    <h4>This client works with the assosiated <a href="https://github.com/ExceptionHandlersUOA/SpaceShipCrewServer">SpaceShipCrewServer</a> project.</h4>
+    <h5>Automatically deploys via Docker w/ CI/CD integration.</h4>
 </div>
 
 ### Information
