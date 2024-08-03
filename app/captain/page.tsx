@@ -20,7 +20,7 @@ export default function Page() {
         <div className="page">
             <DirectionBar redSection={0} />
             <TextField text={"OHHOHOO"} />
-            <ResourceBar value={resourceAmount} />
+            <ResourceBar resource={"water"} value={resourceAmount} />
             <button onClick={handleClick} className="button">Progress</button>
         </div>
     );

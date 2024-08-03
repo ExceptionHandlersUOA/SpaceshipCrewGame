@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./DirectionBar.module.css"
 
-const ThreeSectionBar = ({ redSection }: { redSection: number }) => {
+export default function ThreeSectionBar({ redSection }: { redSection: number }) {
   const getSectionStyle = (sectionIndex: number) => ({
     flex: 1,
     height: '100%',
@@ -17,5 +17,3 @@ const ThreeSectionBar = ({ redSection }: { redSection: number }) => {
     </div>
   );
 };
-
-export default ThreeSectionBar;
