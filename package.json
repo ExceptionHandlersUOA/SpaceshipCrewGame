@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@microsoft/signalr": "^8.0.7",
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18",
-    "spaceshipcrewgamenew": "file:"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^20",
