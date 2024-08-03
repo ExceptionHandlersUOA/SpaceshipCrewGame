@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "next": "14.2.5",
-    "nextjs-progressbar": "^0.0.16",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "spaceshipcrewgamenew": "file:"
   },
   "devDependencies": {
     "@types/node": "^20",
