@@ -10,6 +10,7 @@ export type RoomStart = {UserId: number};
 
 export type ActionGeneric = {ActionId: string; UserId: number};
 export type ActionButton = ActionGeneric & {Dir: 'down' | 'up'};
+export type ActionEvent = ActionGeneric;
 export type ActionSwitch = ActionGeneric & {Value: boolean};
 export type ActionNumber = ActionGeneric & {Value: number};
 
@@ -18,10 +19,10 @@ export type RoomCreateAck = {RoomCode: string};
 export type TutorialEnd = {};
 export type TutorialStart = {};
 
-export type SendProtocolId = 'RoomJoin' | 'RoomStart' | 'ActionButton' | 'ActionSwitch' | 'ActionNumber' | 'RoomCreate' | 'TutorialEnd';
-export type SendMessage = RoomJoin | RoomStart | ActionButton | ActionSwitch | ActionNumber | RoomCreate | TutorialEnd;
-export type ReceiveProtocolId = 'TutorialStart' | 'State';
-export type ReceiveMessage = TutorialStart | State;
+export type SendProtocolId = 'RoomJoin' | 'RoomStart' | 'ActionButton' | 'ActionEvent' | 'ActionSwitch' | 'ActionNumber' | 'RoomCreate' | 'TutorialEnd';
+export type SendMessage = RoomJoin | RoomStart | ActionButton | ActionEvent | ActionSwitch | ActionNumber | RoomCreate | TutorialEnd;
+export type ReceiveProtocolId = 'TutorialStart' | 'State' | 'WriteMessage';
+export type ReceiveMessage = TutorialStart | State | string;
 export type ResponseMessage = RoomJoinAck | RoomCreateAck;
 
 /**
@@ -48,10 +49,10 @@ export class BasicComm {
             .withUrl(SIGNALR_URL)
             .build();
 
-        this.connection.on('ServerToClient', (protocolId: string, data: string) => {
+        this.connection.on('ServerToClient', (protocolId: string, data: any) => {
             const handler = this.receiveHandlers[protocolId];
             if (handler) {
-                handler(JSON.parse(data));
+                handler(data);
             }
         });
     }
@@ -78,7 +79,7 @@ export class BasicComm {
      * @param protocolId
      * @param newMethod the handler that will be raised when the message is recieved.
      */
-    protected on(protocolId: ReceiveProtocolId, newMethod: (arg: ReceiveMessage) => any): void {
+    protected on(protocolId: ReceiveProtocolId, newMethod: (arg: ReceiveMessage) => void): void {
         this.receiveHandlers[protocolId] = newMethod;
     }
 }
@@ -100,6 +101,10 @@ export default class Comm extends BasicComm {
             this.currentState = data;
             this.cbOnState(data);
         }) as ((data: ReceiveMessage) => void));
+
+        this.on('WriteMessage', ((data: string) => {
+            this.cbOnWriteMessage(data);
+        }) as ((data: ReceiveMessage) => void));
     }
 
     /**
@@ -113,6 +118,7 @@ export default class Comm extends BasicComm {
 
     private cbOnTutorialStart: (data: TutorialStart) => void = () => {};
     private cbOnState: (data: State) => void = () => {};
+    private cbOnWriteMessage: (data: string) => void = () => {};
 
     public async roomJoin(roomCode: string, username: string): Promise<RoomJoinAck | undefined> {
         return this.send('RoomJoin', {RoomCode: roomCode, Username: username}) as Promise<RoomJoinAck | undefined>;
@@ -124,6 +130,10 @@ export default class Comm extends BasicComm {
 
     public async actionButton(actionId: string, userId: number, dir: 'down' | 'up'): Promise<void> {
         return this.send('ActionButton', {ActionId: actionId, UserId: userId, Dir: dir}) as Promise<void>;
+    }
+
+    public async actionEvent(actionId: string, userId: number): Promise<void> {
+        return this.send('ActionEvent', {ActionId: actionId, UserId: userId}) as Promise<void>;
     }
 
     public async actionSwitch(actionId: string, userId: number, value: boolean): Promise<void> {
@@ -148,6 +158,10 @@ export default class Comm extends BasicComm {
 
     public onState(newMethod: (data: State) => void): void {
         this.cbOnState = newMethod;
+    }
+
+    public onWriteMessage(newMethod: (data: string) => void): void {
+        this.cbOnWriteMessage = newMethod;
     }
 }
 
