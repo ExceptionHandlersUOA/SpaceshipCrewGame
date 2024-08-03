@@ -53,6 +53,7 @@ export class BasicComm {
             .build();
 
         this.connection.on('ServerToClient', (protocolId: string, data: any) => {
+            console.log("Comm receive", protocolId, data);
             const handler = this.receiveHandlers[protocolId];
             if (handler) {
                 handler(data);
@@ -64,6 +65,7 @@ export class BasicComm {
      * Start the connection - should be called for messages to be sent/received
      */
     public async start(): Promise<void> {
+        console.log("Comm start");
         await this.connection.start();
     }
 
@@ -71,6 +73,7 @@ export class BasicComm {
      * Stop the connection
      */
     public async stop(): Promise<void> {
+        console.log("Comm stop");
         await this.connection.stop();
     }
 
@@ -80,6 +83,7 @@ export class BasicComm {
      * @param data JSON object to send
      */
     protected send(protocolId: SendProtocolId, data: SendMessage): Promise<ResponseMessage | undefined> {
+        console.log("Comm send", protocolId, data);
         return this.connection.invoke(protocolId, data);
     }
 
@@ -90,6 +94,7 @@ export class BasicComm {
      * @param newMethod the handler that will be raised when the message is recieved.
      */
     protected on(protocolId: ReceiveProtocolId, newMethod: (arg: ReceiveMessage) => void): void {
+        console.log("Comm on", protocolId);
         this.receiveHandlers[protocolId] = newMethod;
     }
 }

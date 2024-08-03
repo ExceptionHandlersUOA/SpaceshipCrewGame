@@ -1,6 +1,6 @@
 export type GameStateType = 'lobby' | 'inTutorial' | 'inGame' | 'gameOver';
 
-export type RoleName = 'pilot' | 'chemist' | 'engineer';
+export type RoleName = 'unknown' | 'pilot' | 'chemist' | 'engineer';
 
 export type RoleData = {
     roleId: RoleName;
@@ -22,6 +22,7 @@ export type State = {
 };
 
 export const NICE_ROLE_NAME: { [roleName in RoleName]: string } = {
+    'unknown': '',
     'pilot': 'Captain',
     'engineer': 'Engineer',
     'chemist': 'Chemist',

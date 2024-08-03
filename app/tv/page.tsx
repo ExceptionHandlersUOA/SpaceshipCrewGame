@@ -24,6 +24,15 @@ function getElapsedString(elapsedSecs: number): string {
     return `${minsString}:${secsString}`;
 }
 
+function getPlayerDisplayText(roleData: RoleData): string {
+    let displayText = roleData.username;
+    let role = NICE_ROLE_NAME[roleData.roleId];
+    if (role !== '') {
+        displayText += ` (${role})`;
+    }
+    return displayText;
+}
+
 function playerList(players: { [user_id: string | number]: RoleData }) {
     const playerArr = Object.entries(players);
     playerArr.sort((a, b) => parseInt(a[0], 10) - parseInt(b[0], 10));
@@ -33,13 +42,14 @@ function playerList(players: { [user_id: string | number]: RoleData }) {
         return playerArr.map(([userId, roleData]: [string, RoleData]) => {
             return (
                 <ul className={styles.playerRow} key={userId.toString()}>
-                    <span className={styles.circleSpan}>P{userId}</span> {`${roleData.username} (${NICE_ROLE_NAME[roleData.roleId]})`}
+                    <span className={styles.circleSpan}>P{userId}</span> {getPlayerDisplayText(roleData)}
                 </ul>
             );
         });
     }
 }
 
+const comm = new Comm();
 
 function TvDisplay() {
     const [players, setPlayers] = useState<PlayerData[]>(PLAYERS);
@@ -57,14 +67,8 @@ function TvDisplay() {
     const [gameState, setGameState] = useState<GameStateType>('lobby');
 
     useEffect(() => {
-        const comm = new Comm();
-
-        async function doStuff() {
-            try {
-                await comm.start();
-            } catch (e) {
-                console.error(e);
-            }
+        async function doAsyncStuff() {
+            await comm.start();
 
             let roomCreateRes = await comm.roomCreate();
             console.log(roomCreateRes);
@@ -93,13 +97,25 @@ function TvDisplay() {
         //    setTimeSecs((timeSecs) => timeSecs + 1);
         //}, 1000);
 
-        doStuff();
+        doAsyncStuff().catch((e) => {
+            console.error(e);
+        });
 
         return () => {
             clearInterval(interval);
             comm.stop();
         };
     }, []);
+
+    function handleStartGame() {
+        async function doAsyncStuff() {
+            await comm.roomStart();
+        }
+
+        doAsyncStuff().catch((e) => {
+            console.error(e);
+        });
+    }
 
     return <div className={(styles.tv + ' ' + michroma.className)}>
         <div className={styles.infoColumn}>
@@ -113,8 +129,8 @@ function TvDisplay() {
                     }
                 </div>
                 {
-                    (isGameReady && gameState === 'lobby' || true) ?
-                        <button className={styles.ready + ' ' + chivoMono.className}>
+                    (isGameReady && gameState === 'lobby') ?
+                        <button className={styles.ready + ' ' + chivoMono.className} onClick={handleStartGame}>
                             Start game!
                         </button>
                     :
