@@ -1,0 +1,84 @@
+/* page.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #001f3f, #000000);
+    color: white;
+  }
+  
+  .card {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .titleText {
+    font-size: 28px;
+    margin: 0 10px;
+    word-wrap: break-word;
+  }
+  
+  .emoji {
+    font-size: 24px;
+  }
+  
+  .subtitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #0074d9;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .primaryButton {
+    background-color: #0074d9;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Add spacing between buttons */
+  }
+  
+  .primaryButton:hover {
+    background-color: #005ea6;
+  }
+  
+  .secondaryButton {
+    background-color: #ff851b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px; /* Add spacing between buttons */
+  }
+  
+  .secondaryButton:hover {
+    background-color: #d65c00;
+  }
+  
