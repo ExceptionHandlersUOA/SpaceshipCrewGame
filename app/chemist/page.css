@@ -1,0 +1,35 @@
+.page {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 50px;
+    /* Background subject to change */
+    background-image: radial-gradient(white, #403e3b);
+    min-height: 100vh;
+}
+
+/* Edit this to make it look tubey */
+.elementtube {
+    position: relative;
+    margin: 0;
+    padding: 1rem;
+    background-color: rgba(var(--callout-rgb), 0.5);
+    border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+    border-radius: var(--border-radius);
+}
+
+button {
+    border-radius: 8px;
+    border: 2px solid black;
+    /* padding: 0.6em 0.6em; */
+    width: 7em;
+    height: 2.4em;
+    font-size: 1em;
+    font-weight: 1000;
+    font-family: inherit;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
