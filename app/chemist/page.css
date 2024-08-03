@@ -5,7 +5,8 @@
     align-items: center;
     flex-direction: column;
     row-gap: 50px;
-    background-color: #8b948d;
+    /* Background subject to change */
+    background-image: radial-gradient(white, #403e3b);
     min-height: 100vh;
 }
 
@@ -23,7 +24,7 @@ button {
     border-radius: 8px;
     border: 2px solid black;
     /* padding: 0.6em 0.6em; */
-    width: 6em;
+    width: 7em;
     height: 2.4em;
     font-size: 1em;
     font-weight: 1000;
