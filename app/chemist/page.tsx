@@ -4,11 +4,19 @@ import { useState } from 'react';
 import { ElementTube } from '../ui/chemist/elementTube';
 import './page.css';
 
-export default function Page() {
-    const [sequence, setSequence] = useState("Sequence: ");
+export default function Page({ correctSequence }: { correctSequence: string }) {
+    const temporaryCorrectSequence = "HOHOHO"; // replace with correctSequence
+    const [sequence, setSequence] = useState("");
 
     const handleButtonClick = (element: string) => {
-        setSequence(sequence + element);
+        if (temporaryCorrectSequence === sequence + element) {
+            // Increase fuel/electricity
+            setSequence(sequence + element + " (correct sequence!)");
+        } else if (temporaryCorrectSequence.startsWith(sequence + element)) {
+            setSequence(sequence + element);
+        } else {
+            setSequence("");
+        }
     };
 
     return (
