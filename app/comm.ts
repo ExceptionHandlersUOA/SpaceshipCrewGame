@@ -1,19 +1,20 @@
 import * as signalR from "@microsoft/signalr";
 import { State } from "./common";
 
-const SIGNALR_URL = '/endpoint';
+const SIGNALR_URL = 'https://hackathon.feroxfoxxo.com/hub';
+//const SIGNALR_URL = 'http://172.20.10.71:6783/hub';
 
-export type RoomJoin = {room_code: string; username: string};
-export type RoomJoinAck = {user_id: number};
-export type RoomStart = {user_id: number};
+export type RoomJoin = {RoomCode: string; Username: string};
+export type RoomJoinAck = {UserId: number};
+export type RoomStart = {UserId: number};
 
-export type ActionGeneric = {action_id: string; user_id: number};
-export type ActionButton = ActionGeneric & {dir: 'down' | 'up'};
-export type ActionSwitch = ActionGeneric & {value: boolean};
-export type ActionNumber = ActionGeneric & {value: number};
+export type ActionGeneric = {ActionId: string; UserId: number};
+export type ActionButton = ActionGeneric & {Dir: 'down' | 'up'};
+export type ActionSwitch = ActionGeneric & {Value: boolean};
+export type ActionNumber = ActionGeneric & {Value: number};
 
 export type RoomCreate = {};
-export type RoomCreateAck = {room_code: string};
+export type RoomCreateAck = {RoomCode: string};
 export type TutorialEnd = {};
 export type TutorialStart = {};
 
@@ -68,14 +69,7 @@ export class BasicComm {
      * @param data JSON object to send
      */
     protected send(protocolId: SendProtocolId, data: SendMessage): Promise<ResponseMessage | undefined> {
-        return this.connection.invoke(protocolId, JSON.stringify(data))
-            .then((v: any) => {
-                if (typeof v === 'string' && v.length > 0) {
-                    return JSON.parse(v);
-                } else {
-                    return undefined;
-                }
-            });
+        return this.connection.invoke(protocolId, data);
     }
 
     /**
@@ -121,7 +115,7 @@ export default class Comm extends BasicComm {
     private cbOnState: (data: State) => void = () => {};
 
     public async roomJoin(roomCode: string, username: string): Promise<RoomJoinAck | undefined> {
-        return this.send('RoomJoin', {room_code: roomCode, username}) as Promise<RoomJoinAck | undefined>;
+        return this.send('RoomJoin', {RoomCode: roomCode, Username: username}) as Promise<RoomJoinAck | undefined>;
     }
 
     public async roomStart(): Promise<void> {
@@ -129,15 +123,15 @@ export default class Comm extends BasicComm {
     }
 
     public async actionButton(actionId: string, userId: number, dir: 'down' | 'up'): Promise<void> {
-        return this.send('ActionButton', {action_id: actionId, user_id: userId, dir}) as Promise<void>;
+        return this.send('ActionButton', {ActionId: actionId, UserId: userId, Dir: dir}) as Promise<void>;
     }
 
     public async actionSwitch(actionId: string, userId: number, value: boolean): Promise<void> {
-        return this.send('ActionSwitch', {action_id: actionId, user_id: userId, value}) as Promise<void>;
+        return this.send('ActionSwitch', {ActionId: actionId, UserId: userId, Value: value}) as Promise<void>;
     }
 
     public async actionNumber(actionId: string, userId: number, value: number): Promise<void> {
-        return this.send('ActionNumber', {action_id: actionId, user_id: userId, value}) as Promise<void>;
+        return this.send('ActionNumber', {ActionId: actionId, UserId: userId, Value: value}) as Promise<void>;
     }
 
     public async roomCreate(): Promise<RoomCreateAck | undefined> {
