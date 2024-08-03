@@ -36,6 +36,16 @@
             }
         }
 
+        .ready {
+            background-color: green;
+            border: 5px solid white;
+            border-radius: 20px;
+            margin-top: 50px;
+            font-size: 100%;
+            padding: 30px;
+            width: 100%;
+        }
+
         .timer {
             display: flex;
             flex-direction: column;

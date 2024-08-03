@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { NICE_ROLE_NAME, RoleData, RoleName, State } from "../common";
+import { GameStateType, NICE_ROLE_NAME, RoleData, RoleName, State } from "../common";
 import styles from "./page.module.css";
 
 import { Michroma, Chivo_Mono } from "next/font/google";
@@ -50,11 +50,21 @@ function TvDisplay() {
 
     const [roomCode, setRoomCode] = useState<string>('');
 
+    const [isGameReady, setIsGameReady] = useState(false);
+
+    const [isGameEnded, setIsGameEnded] = useState(false);
+
+    const [gameState, setGameState] = useState<GameStateType>('lobby');
+
     useEffect(() => {
         const comm = new Comm();
 
         async function doStuff() {
-            await comm.start();
+            try {
+                await comm.start();
+            } catch (e) {
+                console.error(e);
+            }
 
             let roomCreateRes = await comm.roomCreate();
             console.log(roomCreateRes);
@@ -68,8 +78,13 @@ function TvDisplay() {
         });
 
         comm.onState((state: State) => {
+            console.log(state);
             setState(state);
+            setGameState(state.gameState);
         });
+
+        comm.onGameNotReady(() => { setIsGameReady(false); });
+        comm.onGameReady(() => { setIsGameReady(true); });
 
         let interval = undefined;
 
@@ -97,6 +112,14 @@ function TvDisplay() {
                         playerList(state?.roles ?? {})
                     }
                 </div>
+                {
+                    (isGameReady && gameState === 'lobby' || true) ?
+                        <button className={styles.ready + ' ' + chivoMono.className}>
+                            Start game!
+                        </button>
+                    :
+                        <></>
+                }
             </div>
             <>
                 {

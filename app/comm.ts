@@ -24,7 +24,7 @@ export type TutorialStart = {};
 
 export type SendProtocolId = 'RoomJoin' | 'RoomStart' | 'ActionButton' | 'ActionEvent' | 'ActionSwitch' | 'ActionNumber' | 'SelectRole' | 'RoomCreate' | 'TutorialEnd';
 export type SendMessage = RoomJoin | RoomStart | ActionButton | ActionEvent | ActionSwitch | ActionNumber | RoomCreate | TutorialEnd;
-export type ReceiveProtocolId = 'TutorialStart' | 'State' | 'WriteMessage' | 'GameReady' | 'GameNotReady' | 'GameEnd';
+export type ReceiveProtocolId = 'TutorialStart' | 'State' | 'WriteMessage' | 'GameReady' | 'GameNotReady' | 'GameEnd' | 'GameStart';
 export type ReceiveMessage = TutorialStart | State | string;
 export type ResponseMessage = RoomJoinAck | RoomCreateAck;
 
@@ -127,6 +127,10 @@ export default class Comm extends BasicComm {
         this.on('GameEnd', (() => {
             this.cbOnGameEnd();
         }) as ((data: ReceiveMessage) => void));
+
+        this.on('GameStart', (() => {
+            this.cbOnGameStart();
+        }) as ((data: ReceiveMessage) => void));
     }
 
     /**
@@ -144,6 +148,7 @@ export default class Comm extends BasicComm {
     private cbOnGameReady: () => void = () => {};
     private cbOnGameNotReady: () => void = () => {};
     private cbOnGameEnd: () => void = () => {};
+    private cbOnGameStart: () => void = () => {};
 
     public async roomJoin(roomCode: string, username: string): Promise<RoomJoinAck | undefined> {
         return this.send('RoomJoin', {roomCode: roomCode, username: username}) as Promise<RoomJoinAck | undefined>;
@@ -203,6 +208,10 @@ export default class Comm extends BasicComm {
 
     public onGameEnd(newMethod: () => void): void {
         this.cbOnGameEnd = newMethod;
+    }
+
+    public onGameStart(newMethod: () => void): void {
+        this.cbOnGameStart = newMethod;
     }
 }
 
