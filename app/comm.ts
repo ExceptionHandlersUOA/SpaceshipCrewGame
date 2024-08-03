@@ -4,24 +4,27 @@ import { State } from "./common";
 const SIGNALR_URL = 'https://hackathon.feroxfoxxo.com/hub';
 //const SIGNALR_URL = 'http://172.20.10.71:6783/hub';
 
-export type RoomJoin = {RoomCode: string; Username: string};
-export type RoomJoinAck = {UserId: number};
-export type RoomStart = {UserId: number};
+export type RoomJoin = {roomCode: string; username: string};
+export type RoomJoinAck = {userId: number};
+export type RoomStart = {};
 
-export type ActionGeneric = {ActionId: string; UserId: number};
-export type ActionButton = ActionGeneric & {Dir: 'down' | 'up'};
+export type ActionGeneric = {actionId: string};
+export type ActionButton = ActionGeneric & {direction: 'down' | 'up'};
 export type ActionEvent = ActionGeneric;
-export type ActionSwitch = ActionGeneric & {Value: boolean};
-export type ActionNumber = ActionGeneric & {Value: number};
+export type ActionSwitch = ActionGeneric & {value: boolean};
+export type ActionNumber = ActionGeneric & {value: number};
+
+export type SelectRole = {roleName: string};
+export type SelectRoleAck = {success: boolean};
 
 export type RoomCreate = {};
-export type RoomCreateAck = {RoomCode: string};
+export type RoomCreateAck = {roomCode: string};
 export type TutorialEnd = {};
 export type TutorialStart = {};
 
-export type SendProtocolId = 'RoomJoin' | 'RoomStart' | 'ActionButton' | 'ActionEvent' | 'ActionSwitch' | 'ActionNumber' | 'RoomCreate' | 'TutorialEnd';
+export type SendProtocolId = 'RoomJoin' | 'RoomStart' | 'ActionButton' | 'ActionEvent' | 'ActionSwitch' | 'ActionNumber' | 'SelectRole' | 'RoomCreate' | 'TutorialEnd';
 export type SendMessage = RoomJoin | RoomStart | ActionButton | ActionEvent | ActionSwitch | ActionNumber | RoomCreate | TutorialEnd;
-export type ReceiveProtocolId = 'TutorialStart' | 'State' | 'WriteMessage';
+export type ReceiveProtocolId = 'TutorialStart' | 'State' | 'WriteMessage' | 'GameReady' | 'GameNotReady' | 'GameEnd' | 'GameStart';
 export type ReceiveMessage = TutorialStart | State | string;
 export type ResponseMessage = RoomJoinAck | RoomCreateAck;
 
@@ -50,6 +53,7 @@ export class BasicComm {
             .build();
 
         this.connection.on('ServerToClient', (protocolId: string, data: any) => {
+            console.log("Comm receive", protocolId, data);
             const handler = this.receiveHandlers[protocolId];
             if (handler) {
                 handler(data);
@@ -61,7 +65,16 @@ export class BasicComm {
      * Start the connection - should be called for messages to be sent/received
      */
     public async start(): Promise<void> {
+        console.log("Comm start");
         await this.connection.start();
+    }
+
+    /**
+     * Stop the connection
+     */
+    public async stop(): Promise<void> {
+        console.log("Comm stop");
+        await this.connection.stop();
     }
 
     /**
@@ -70,6 +83,7 @@ export class BasicComm {
      * @param data JSON object to send
      */
     protected send(protocolId: SendProtocolId, data: SendMessage): Promise<ResponseMessage | undefined> {
+        console.log("Comm send", protocolId, data);
         return this.connection.invoke(protocolId, data);
     }
 
@@ -80,6 +94,7 @@ export class BasicComm {
      * @param newMethod the handler that will be raised when the message is recieved.
      */
     protected on(protocolId: ReceiveProtocolId, newMethod: (arg: ReceiveMessage) => void): void {
+        console.log("Comm on", protocolId);
         this.receiveHandlers[protocolId] = newMethod;
     }
 }
@@ -105,6 +120,22 @@ export default class Comm extends BasicComm {
         this.on('WriteMessage', ((data: string) => {
             this.cbOnWriteMessage(data);
         }) as ((data: ReceiveMessage) => void));
+
+        this.on('GameReady', (() => {
+            this.cbOnGameReady();
+        }) as ((data: ReceiveMessage) => void));
+
+        this.on('GameNotReady', (() => {
+            this.cbOnGameNotReady();
+        }) as ((data: ReceiveMessage) => void));
+
+        this.on('GameEnd', (() => {
+            this.cbOnGameEnd();
+        }) as ((data: ReceiveMessage) => void));
+
+        this.on('GameStart', (() => {
+            this.cbOnGameStart();
+        }) as ((data: ReceiveMessage) => void));
     }
 
     /**
@@ -119,29 +150,37 @@ export default class Comm extends BasicComm {
     private cbOnTutorialStart: (data: TutorialStart) => void = () => {};
     private cbOnState: (data: State) => void = () => {};
     private cbOnWriteMessage: (data: string) => void = () => {};
+    private cbOnGameReady: () => void = () => {};
+    private cbOnGameNotReady: () => void = () => {};
+    private cbOnGameEnd: () => void = () => {};
+    private cbOnGameStart: () => void = () => {};
 
     public async roomJoin(roomCode: string, username: string): Promise<RoomJoinAck | undefined> {
-        return this.send('RoomJoin', {RoomCode: roomCode, Username: username}) as Promise<RoomJoinAck | undefined>;
+        return this.send('RoomJoin', {roomCode: roomCode, username: username}) as Promise<RoomJoinAck | undefined>;
     }
 
     public async roomStart(): Promise<void> {
         return this.send('RoomStart', {}) as Promise<void>;
     }
 
-    public async actionButton(actionId: string, userId: number, dir: 'down' | 'up'): Promise<void> {
-        return this.send('ActionButton', {ActionId: actionId, UserId: userId, Dir: dir}) as Promise<void>;
+    public async actionButton(actionId: string, userId: number, direction: 'down' | 'up'): Promise<void> {
+        return this.send('ActionButton', {actionId: actionId, direction: direction}) as Promise<void>;
     }
 
     public async actionEvent(actionId: string, userId: number): Promise<void> {
-        return this.send('ActionEvent', {ActionId: actionId, UserId: userId}) as Promise<void>;
+        return this.send('ActionEvent', {actionId: actionId}) as Promise<void>;
     }
 
     public async actionSwitch(actionId: string, userId: number, value: boolean): Promise<void> {
-        return this.send('ActionSwitch', {ActionId: actionId, UserId: userId, Value: value}) as Promise<void>;
+        return this.send('ActionSwitch', {actionId: actionId, value: value}) as Promise<void>;
     }
 
     public async actionNumber(actionId: string, userId: number, value: number): Promise<void> {
-        return this.send('ActionNumber', {ActionId: actionId, UserId: userId, Value: value}) as Promise<void>;
+        return this.send('ActionNumber', {actionId: actionId, value: value}) as Promise<void>;
+    }
+
+    public async selectRole(roleName: string): Promise<SelectRoleAck | undefined> {
+        return this.send('SelectRole', {roleName: roleName}) as Promise<SelectRoleAck | undefined>;
     }
 
     public async roomCreate(): Promise<RoomCreateAck | undefined> {
@@ -162,6 +201,22 @@ export default class Comm extends BasicComm {
 
     public onWriteMessage(newMethod: (data: string) => void): void {
         this.cbOnWriteMessage = newMethod;
+    }
+
+    public onGameReady(newMethod: () => void): void {
+        this.cbOnGameReady = newMethod;
+    }
+
+    public onGameNotReady(newMethod: () => void): void {
+        this.cbOnGameNotReady = newMethod;
+    }
+
+    public onGameEnd(newMethod: () => void): void {
+        this.cbOnGameEnd = newMethod;
+    }
+
+    public onGameStart(newMethod: () => void): void {
+        this.cbOnGameStart = newMethod;
     }
 }
 

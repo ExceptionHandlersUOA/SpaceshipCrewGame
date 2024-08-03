@@ -1,0 +1,90 @@
+.tv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: var(--font-michroma);
+
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+
+    .infoColumn {
+        font-size: xx-large;
+
+        padding: 50px;
+        padding-left: 100px;
+        padding-right: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .playerList {
+            .playerRow {
+                padding-top: 20px;
+                padding-bottom: 20px;
+                .circleSpan {
+                    background-color: #f0f0f0;
+                    border-radius: 50%;
+                    display: inline-block;
+                    height: 2.5em;
+                    width: 2.5em;
+                    text-align: center;
+                    line-height: 2.5em;
+                    color: black;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .ready {
+            background-color: green;
+            border: 5px solid white;
+            border-radius: 20px;
+            margin-top: 50px;
+            font-size: 100%;
+            padding: 30px;
+            width: 100%;
+        }
+
+        .timer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .time {
+                font-weight: bold;
+                font-size: 250%;
+            }
+            .label {
+
+            }
+        }
+    }
+
+    .visual {
+        flex-grow: 1;
+        background-color: green;
+        .visualContainer {
+            padding: 10px;
+            position: relative;
+            height: 100%;
+            width: 100%;
+
+            .canvas {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            .instructions {
+                position: absolute;
+                padding: 10px;
+                z-index: 5;
+                border-radius: 10px;
+                background-color: rgba(69, 61, 61, 0.25);
+                backdrop-filter: blur(5px);
+            }
+        }
+    }
+}
