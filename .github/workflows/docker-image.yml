@@ -1,0 +1,29 @@
+name: Docker
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    if: github.repository_owner  == 'ExceptionHandlersUOA'
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Build backend
+        run: |
+          docker build -t ghcr.io/exceptionhandlersuoa/backend:latest .
+     
+      - name: Push backend
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ExceptionHandlersUOA --password-stdin
+          docker push ghcr.io/exceptionhandlersuoa/backend:latest
+
+      - name: Send discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "🚀 Published 🚀"
