@@ -133,9 +133,12 @@ export default function SineGraph(sineMatch) {
     }), [staticData, dynamicData]);
 
     useEffect(() => {
-        if (magnitude === staticData.staticMagnitude ){
-            if (phase === staticData.staticPhase) {
-                if (frequency === staticData.staticFrequency) {
+        const magnitudeTolerance = 2 * 0.5;
+        const phaseTolerance = 2 * 0.628;
+        const frequencyTolerance = 2 * 0.4;
+        if (Math.abs(magnitude - staticData.staticMagnitude) <= magnitudeTolerance) {
+            if (Math.abs(phase - staticData.staticPhase) <= phaseTolerance) {
+                if (Math.abs(frequency - staticData.staticFrequency) <= frequencyTolerance) {
                     sineMatch()
                 }
             }

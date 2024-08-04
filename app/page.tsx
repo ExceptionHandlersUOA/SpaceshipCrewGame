@@ -129,8 +129,8 @@ export default function Home() {
 
   return (
     <main>
-            {/* <button onClick={changePage} className={styles.button}>C</button>
-            <button onClick={changeRole} className={styles.button}>R</button> */}
+            {/* <button onClick={changePage} className={styles.button}>C</button> */}
+            {/* <button onClick={changeRole} className={styles.button}>R</button> */}
             {currentPage === "play" ? (
                   (userRole === "pilot") ?
                     <CaptainPage onAsteroidClick={handleHarvestAsteroid} fuelAmount={state?.resources.fuel ?? 0} chemSequence={state!.currentSequence}/>
