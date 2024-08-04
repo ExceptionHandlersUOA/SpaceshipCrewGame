@@ -5,7 +5,7 @@ import { ElementTube } from '../chemist/elementTube';
 import styles from './ChemistPage.module.css';
 import ResourceBar, { Resources } from '../ResourceBar';
 
-export default function ChemistPage() {
+export default function ChemistPage({correctSequence, fuelAmount, onSequenceCorrect}: { correctSequence: string, fuelAmount: number, onSequenceCorrect: (length: number) => void }) {
     const temporaryCorrectSequence = "HOHOHO"; // replace with correctSequence
     // removed from Page() props:  { correctSequence }: { correctSequence: string }
     const [sequence, setSequence] = useState("");
