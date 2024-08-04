@@ -163,7 +163,15 @@ function TvDisplay() {
                 <AsteroidField className={styles.canvas} onAsteroidClick={() => {}}></AsteroidField>
                 <div className={styles.instructions}>
                     <h2>How to play:</h2>
-                    <span>TODO</span>
+                    <b>Chemist - makes fuel, uses water:</b><br/>
+                    The chemist must communicate with the pilot to fill in the correct<br/>
+                    sequence of hydrogen and oxygen that the pilot has, to generate fuel.<br/>
+                    <br/>
+                    <b>Captain - makes water, uses electricity:</b><br/>
+                    The pilot must shoot asteroids to gather water.<br/>
+                    <br/>
+                    <b>Engineer - makes electricity, uses fuel:</b><br/>
+                    The Engineer must Match sin waves to generate electricity.
                 </div>
                 <div className={styles.log}>
                     <ul className={styles.ul}>

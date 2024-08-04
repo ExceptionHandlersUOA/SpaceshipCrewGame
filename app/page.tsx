@@ -135,7 +135,7 @@ export default function Home() {
                   (userRole === "pilot") ?
                     <CaptainPage onAsteroidClick={handleHarvestAsteroid} fuelAmount={state?.resources.fuel ?? 0} chemSequence={state!.currentSequence}/>
                   : (userRole === "chemist") ?
-                    <ChemistPage correctSequence={state!.currentSequence} fuelAmount={state?.resources.fuel ?? 0} onSequenceCorrect={onSequenceCorrect} />
+                    <ChemistPage correctSequence={state!.currentSequence} electricityAmount={state?.resources.electricity ?? 0} onSequenceCorrect={onSequenceCorrect} />
                   : (userRole === "engineer") ?
                     <EngineerPage onSineMatch={handleSineMatch} waterAmount={state?.resources.water ?? 0}/>
                   : <></>
