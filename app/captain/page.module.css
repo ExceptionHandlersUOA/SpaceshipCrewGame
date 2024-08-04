@@ -6,7 +6,8 @@
     flex-direction: column;
     row-gap: 50px;
     /* Background subject to change */
-    background-image: radial-gradient(white, #403e3b);
+    background: linear-gradient(to bottom, #001f3f, #000000);
+    min-height: 100vh;
 }
 
 .button {

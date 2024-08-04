@@ -3,7 +3,7 @@ import styles from './GameOverPage.module.css'
 export default function GameOverPage() {
     return (
         <div className={styles.gameOverPage}>
-            Hello
+            <h1>You effed up.</h1>
         </div>
     );
 }
