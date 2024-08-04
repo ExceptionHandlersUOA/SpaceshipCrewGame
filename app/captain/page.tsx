@@ -6,10 +6,12 @@ import TextField from "../ui/captain/TextField";
 import styles from "./page.module.css"
 import ResourceBar, { Resources } from "../ui/ResourceBar";
 import GameOverPage from "../ui/GameOverPage";
+import LoginPage from "../ui/LoginPage";
+import QueuePage from "../ui/QueuePage";
 
 export default function Page() {
     const [resourceAmount, setResourceAmount] = useState(0)
-    const [currentPage, setCurrentPage] = useState("play")
+    const [currentPage, setCurrentPage] = useState("login")
 
     /** Debugging methods */
     const increment = () => {
@@ -27,6 +29,10 @@ export default function Page() {
     const changePage = () => {
         if (currentPage==="play") {
             setCurrentPage("gameover")
+        } else if (currentPage==="gameover") {
+            setCurrentPage("login")
+        } else if (currentPage==="login") {
+            setCurrentPage("queue")
         } else {
             setCurrentPage("play")
         }
@@ -50,11 +56,22 @@ export default function Page() {
     const gameOverPage = () => {
         return <GameOverPage />
     }
+
+    const loginPage = () => {
+        return <LoginPage />
+    }
+
+    const queuePage = () => {
+        return <QueuePage />
+    }
     
     return (
         <main>
-            {/* <button onClick={changePage} className={styles.button}>C</button> */}
-            {currentPage === "play" ? playPage() : gameOverPage()}
+            <button onClick={changePage} className={styles.button}>C</button>
+            {currentPage === "play" ? playPage() : null}
+            {currentPage === "gameover" ? gameOverPage() : null}
+            {currentPage === "login" ? loginPage() : null}
+            {currentPage === "queue" ? queuePage() : null}
         </main>
         
     ); 
