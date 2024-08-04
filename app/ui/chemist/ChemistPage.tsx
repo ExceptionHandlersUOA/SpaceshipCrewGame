@@ -31,8 +31,8 @@ export default function Page() {
                 <ElementTube sequence={sequence} />
             </div>
             <div>
-                <button className={styles.button} onClick={() => handleButtonClick("H")}>Hydrogen</button>
-                <button className={styles.button} onClick={() => handleButtonClick("O")}>Oxygen</button>
+                <button className={styles.button + ' ' + styles.left} onClick={() => handleButtonClick("H")}>H<sub>ydrogen</sub></button>
+                <button className={styles.button + ' ' + styles.right} onClick={() => handleButtonClick("O")}>O<sub>xygen</sub></button>
             </div>
             <ResourceBar resource={Resources.Fuel} value={fuelAmount} />
         </div>
