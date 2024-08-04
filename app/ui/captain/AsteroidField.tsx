@@ -125,7 +125,7 @@ function setUpCanvas(canvas: HTMLCanvasElement, onAsteroidClick: () => void) {
                 star.x = Math.random() * width;
             }
         }
-        asteroid.y += 1 * dt;
+        asteroid.y += 8 * dt;
         asteroid.rotation += 0.01 * dt * asteroid.spinDir;
         if (asteroid.y > height + 100) {
             clearAsteroid();
