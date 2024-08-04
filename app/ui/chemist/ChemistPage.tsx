@@ -5,7 +5,7 @@ import { ElementTube } from '../chemist/elementTube';
 import styles from './ChemistPage.module.css';
 import ResourceBar, { Resources } from '../ResourceBar';
 
-export default function ChemistPage({correctSequence, fuelAmount, onSequenceCorrect}: { correctSequence: string, fuelAmount: number, onSequenceCorrect: (length: number) => void }) {
+export default function ChemistPage({correctSequence, electricityAmount, onSequenceCorrect}: { correctSequence: string, electricityAmount: number, onSequenceCorrect: (length: number) => void }) {
     const temporaryCorrectSequence = "HOHOHO"; // replace with correctSequence
     // removed from Page() props:  { correctSequence }: { correctSequence: string }
     const [sequence, setSequence] = useState("");
@@ -32,7 +32,7 @@ export default function ChemistPage({correctSequence, fuelAmount, onSequenceCorr
                 <button className={styles.button + ' ' + styles.left} onClick={() => handleButtonClick("H")}>H<sub>ydrogen</sub></button>
                 <button className={styles.button + ' ' + styles.right} onClick={() => handleButtonClick("O")}>O<sub>xygen</sub></button>
             </div>
-            <ResourceBar resource={Resources.Fuel} value={fuelAmount} />
+            <ResourceBar resource={Resources.Electricity} value={electricityAmount} />
         </div>
     );
 }
