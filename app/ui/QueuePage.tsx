@@ -1,9 +1,12 @@
 import styles from './QueuePage.module.css';
 
-export default function QueuePage() {
+export default function QueuePage({ canStart, onStart }: { canStart: boolean, onStart: () => void }) {
 
     const handleStart = () => {
         console.log("Start Game")
+        if (onStart != null) {
+            onStart();
+        }
     }
 
     return (
@@ -18,7 +21,7 @@ export default function QueuePage() {
             <span className={styles.emoji}>🚀</span>
           </div>
           <br />
-          <button className={styles.start} onClick={handleStart}>
+          <button className={styles.start} onClick={handleStart} disabled={!canStart}>
           ➡️ Start ⬅️
           </button>
         </div>

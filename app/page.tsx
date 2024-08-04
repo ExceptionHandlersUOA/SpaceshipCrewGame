@@ -10,6 +10,7 @@ import CaptainPage from "./ui/captain/CaptainPage"
 import ChemistPage from "./ui/chemist/ChemistPage"
 import EngineerPage from "./ui/engineer/EngineerPage"
 import Comm from "./comm";
+import { GameStateType, State } from "./common";
 
 const comm: Comm = new Comm();
 
@@ -17,10 +18,27 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState("login")
   const [userRole, setUserRole] = useState("captain")
 
+  const [state, setState] = useState<State | null>(null);
+  const [gameState, setGameState] = useState<GameStateType | null>(null);
+  const [isGameReady, setIsGameReady] = useState(false);
+  const [userId, setUserId] = useState<number | null>(null);
+
+  // TODO this is never updated yet
+  const [correctSequence, setCorrectSequence] = useState("HOHOHO");
+
   useEffect(() => {
     async function doAsyncStuff() {
       await comm.start();
     }
+
+    comm.onState((state: State) => {
+      console.log(state);
+      setState(state);
+      setGameState(state.gameState);
+    });
+
+    comm.onGameNotReady(() => { setIsGameReady(false); });
+    comm.onGameReady(() => { setIsGameReady(true); });
 
     doAsyncStuff().catch((e) => {
       console.error(e);
@@ -35,6 +53,21 @@ export default function Home() {
   function onSequenceCorrect(seqLength: number) {
     // TODO increase fuel, reduce water?
     comm.actionEvent('correctFormula');
+  }
+
+  function onLoginPressed(roomCode: string, username: string) {
+    comm.roomJoin(roomCode, username).then((res) => {
+      if (res?.userId != null) {
+        setUserId(res.userId);
+        setCurrentPage("queue");
+      }
+    });
+  }
+
+  function onGameStartPressed() {
+    comm.roomStart().then(() => {
+      console.log("TODO");
+    });
   }
 
   const changePage = () => {
@@ -63,7 +96,7 @@ export default function Home() {
     if (userRole === "captain") {
       return <CaptainPage />
     } else if (userRole === "chemist") {
-      return <ChemistPage correctSequence={""} fuelAmount={0} onSequenceCorrect={onSequenceCorrect} />
+      return <ChemistPage correctSequence={correctSequence} fuelAmount={state?.resources.fuel ?? 0} onSequenceCorrect={onSequenceCorrect} />
     } else if (userRole === "engineer") {
       return <EngineerPage />
     }
@@ -74,11 +107,11 @@ export default function Home() {
   }
 
   const loginPage = () => {
-      return <LoginPage />
+      return <LoginPage onLoginPressed={onLoginPressed} />
   }
 
   const queuePage = () => {
-      return <QueuePage />
+      return <QueuePage canStart={isGameReady} onStart={onGameStartPressed} />
   }
 
   return (
