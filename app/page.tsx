@@ -22,10 +22,6 @@ export default function Home() {
   const [isGameReady, setIsGameReady] = useState(false);
   const [userId, setUserId] = useState<number | null>(null);
   
-  // Captain Variables
-  const [fuelAmount, setFuelAmount] = useState(100);
-  const [chemSequence, setChemSequence] = useState("");
-
   // Engineer Variables
   const [waterAmount, setWaterAmount] = useState(100);
 
@@ -118,33 +114,15 @@ export default function Home() {
 
   //#region Captain API Methods
   function handleHarvestAsteroid() {
-    return;
     // TODO increase water, reduce electricity?
     comm.actionEvent('harvestAsteroid');
-  }
-
-  function onChangeFuelAmount() {
-    // TODO Get the fuel level from server and pass it on to play page
-    setFuelAmount(fuelAmount+5);
-  }
-
-  function getNewSequence() {
-    // TODO get new sequence from server
-    return;
-    setChemSequence("");
   }
   //#endregion
 
   //#region Engineer API Methods
   function handleSineMatch() {
-    return;
     // TODO increase water, reduce electricity?
-    comm.actionEvent('harvestAsteroid');
-  }
-
-  function onChangeWaterAmount() {
-    // TODO Get the fuel level from server and pass it on to play page
-    setWaterAmount(waterAmount+5);
+    comm.actionEvent('matchSine');
   }
 
   //#endregion
@@ -152,11 +130,11 @@ export default function Home() {
 
   const playPage = () => {
     if (userRole === "pilot") {
-      return <CaptainPage onAsteroidClick={handleHarvestAsteroid} fuelAmount={fuelAmount} chemSequence={chemSequence}/>
+      return <CaptainPage onAsteroidClick={handleHarvestAsteroid} fuelAmount={state?.resources.fuel ?? 0} chemSequence={state!.currentSequence}/>
     } else if (userRole === "chemist") {
-      return <ChemistPage correctSequence={correctSequence} fuelAmount={state?.resources.fuel ?? 0} onSequenceCorrect={onSequenceCorrect} />
+      return <ChemistPage correctSequence={state!.currentSequence} fuelAmount={state?.resources.fuel ?? 0} onSequenceCorrect={onSequenceCorrect} />
     } else if (userRole === "engineer") {
-      return <EngineerPage onSineMatch={handleSineMatch} waterAmount={waterAmount}/>
+      return <EngineerPage onSineMatch={handleSineMatch} waterAmount={state?.resources.water ?? 0}/>
     }
   }
 
