@@ -150,7 +150,6 @@ export default function Home() {
       return <QueuePage canStart={isGameReady} onStart={onGameStartPressed} />
   }
 
-
   return (
     <main>
             <button onClick={changePage} className={styles.button}>C</button>

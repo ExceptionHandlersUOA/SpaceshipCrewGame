@@ -26,8 +26,8 @@ export default function CaptainPage({ onAsteroidClick, fuelAmount, chemSequence 
         <div className={styles.playPage}>
                 <AsteroidField onAsteroidClick={onAsteroidClick} className={styles.canvas}/>
                 {/* <DirectionBar redSection={2} /> */}
-                <TextField text={"OHHOHOO"} />
-                <ResourceBar resource={Resources.Electricity} value={resourceAmount} />
+                <TextField text={chemSequence} />
+                <ResourceBar resource={Resources.Electricity} value={fuelAmount} />
                 {/* Debugging buttons for resource bar  */}
                     {/* <button onClick={increment} className={styles.button}>INCREMENT</button>
                     <button onClick={decrement} className={styles.button}>DECREMENT</button>  */}
