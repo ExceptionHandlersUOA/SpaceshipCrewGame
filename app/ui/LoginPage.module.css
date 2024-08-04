@@ -10,7 +10,7 @@
     color: white;
   }
   
-  .card {
+.card {
     background-color: rgba(255, 255, 255, 0.2);
     padding: 20px;
     border-radius: 20px;
@@ -19,30 +19,30 @@
     max-width: 400px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+}
   
-  .titleContainer {
+.titleContainer {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
   
-  .titleText {
+.titleText {
     font-size: 28px;
     margin: 0 10px;
     word-wrap: break-word;
-  }
+}
   
-  .emoji {
+.emoji {
     font-size: 24px;
-  }
+}
   
-  .subtitle {
+.subtitle {
     font-size: 18px;
     margin-bottom: 10px;
-  }
+}
   
-  .input {
+.input {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #0074d9;
@@ -50,9 +50,9 @@
     background-color: transparent;
     color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+}
   
-  .primaryButton {
+.primaryButton {
     background-color: #0074d9;
     color: white;
     padding: 10px 20px;
@@ -61,13 +61,13 @@
     border-radius: 5px;
     transition: background-color 0.3s ease;
     margin-right: 10px; /* Add spacing between buttons */
-  }
+}
   
-  .primaryButton:hover {
+.primaryButton:hover {
     background-color: #005ea6;
-  }
+}
   
-  .secondaryButton {
+.secondaryButton {
     background-color: #ff851b;
     color: white;
     border: none;
@@ -76,9 +76,9 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-left: 10px; /* Add spacing between buttons */
-  }
+}
   
-  .secondaryButton:hover {
+.secondaryButton:hover {
     background-color: #d65c00;
-  }
+}
   
