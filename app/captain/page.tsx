@@ -53,7 +53,7 @@ export default function Page() {
     
     return (
         <main>
-            {/* <button onClick={changePage} className={styles.button}>C</button> */}
+            <button onClick={changePage} className={styles.button}>C</button>
             {currentPage === "play" ? playPage() : gameOverPage()}
         </main>
         
