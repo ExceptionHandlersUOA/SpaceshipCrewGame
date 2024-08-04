@@ -169,7 +169,7 @@ function TvDisplay() {
                     <ul className={styles.ul}>
                         {
                             messageLog.map((message, index) => {
-                                return <li key={index} style={{color: message.colorHex}} className={styles.li}>{message.message}</li>;
+                                return <li key={index} style={{color: message.colorHex}} className={styles.li} dangerouslySetInnerHTML={{__html: message.message}}></li>;
                             })
                         }
                     </ul>
