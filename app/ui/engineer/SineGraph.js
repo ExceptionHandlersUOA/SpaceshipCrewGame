@@ -1,5 +1,5 @@
 // src/SineGraph.js
-import React, { useState, useMemo, useCallback} from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, Tooltip, Legend, CategoryScale } from 'chart.js';
 import debounce from 'lodash.debounce';
