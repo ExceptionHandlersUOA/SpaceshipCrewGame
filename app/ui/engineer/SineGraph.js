@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce';
 
 ChartJS.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, CategoryScale);
 
-const SineGraph = () => {
+export default function SineGraph(sineMatch) {
     const [magnitude, setMagnitude] = useState(0.5 + 0.25*5);
     const [phase, setPhase] = useState(0 + 0.628*5);
     const [frequency, setFrequency] = useState(0 + 0.4*5);
@@ -132,6 +132,16 @@ const SineGraph = () => {
         datasets: [...staticData.datasets, ...dynamicData.datasets],
     }), [staticData, dynamicData]);
 
+    useEffect(() => {
+        if (magnitude === staticData.staticMagnitude ){
+            if (phase === staticData.staticPhase) {
+                if (frequency === staticData.staticFrequency) {
+                    SineMatch()
+                }
+            }
+        }
+    },[magnitude, phase, frequency])
+    
     return (
     
         <div>
@@ -180,5 +190,3 @@ const SineGraph = () => {
         </div>
     );
 };
-
-export default SineGraph;
