@@ -8,6 +8,7 @@ import LoginPage from "./ui/LoginPage";
 import QueuePage from "./ui/QueuePage";
 import CaptainPage from "./ui/captain/CaptainPage"
 import ChemistPage from "./ui/chemist/ChemistPage"
+import EngineerPage from "./ui/engineer/EngineerPage"
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("login")
@@ -28,17 +29,20 @@ export default function Home() {
   const changeRole = () => {
     if (userRole==="captain") {
         setUserRole("chemist")
+    } else if (userRole==="chemist") {
+        setUserRole("engineer")
     } else {
-        setUserRole("captain")
+      setUserRole("captain")
     }
   };
 
   const playPage = () => {
     if (userRole === "captain") {
       return <CaptainPage />
-    } if (userRole === "chemist") {
+    } else if (userRole === "chemist") {
       return <ChemistPage />
-    }
+    } else if (userRole === "engineer")
+      return <EngineerPage />
   }
 
   const gameOverPage = () => {

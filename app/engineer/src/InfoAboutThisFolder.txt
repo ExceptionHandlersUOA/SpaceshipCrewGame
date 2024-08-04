@@ -1,4 +1,0 @@
-I have implemented Aref's code, and this src folder is now tentatively useless.
-Left it here just in case. Can be deleted.
-
-- Brandon
