@@ -1,95 +1,66 @@
+'use client'
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useState } from "react";
+import GameOverPage from "./ui/GameOverPage";
+import LoginPage from "./ui/LoginPage";
+import QueuePage from "./ui/QueuePage";
+import CaptainPage from "./ui/captain/CaptainPage"
+import ChemistPage from "./ui/chemist/ChemistPage"
 
 export default function Home() {
+  const [currentPage, setCurrentPage] = useState("login")
+  const [userRole, setUserRole] = useState("captain")
+
+  const changePage = () => {
+    if (currentPage==="play") {
+        setCurrentPage("gameover")
+    } else if (currentPage==="gameover") {
+        setCurrentPage("login")
+    } else if (currentPage==="login") {
+        setCurrentPage("queue")
+    } else {
+        setCurrentPage("play")
+    }
+  };
+
+  const changeRole = () => {
+    if (userRole==="captain") {
+        setUserRole("chemist")
+    } else {
+        setUserRole("captain")
+    }
+  };
+
+  const playPage = () => {
+    if (userRole === "captain") {
+      return <CaptainPage />
+    } if (userRole === "chemist") {
+      return <ChemistPage />
+    }
+  }
+
+  const gameOverPage = () => {
+      return <GameOverPage />
+  }
+
+  const loginPage = () => {
+      return <LoginPage />
+  }
+
+  const queuePage = () => {
+      return <QueuePage />
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <main>
+            <button onClick={changePage} className={styles.button}>C</button>
+            <button onClick={changeRole} className={styles.button}>R</button>
+            {currentPage === "play" ? playPage() : null}
+            {currentPage === "gameover" ? gameOverPage() : null}
+            {currentPage === "login" ? loginPage() : null}
+            {currentPage === "queue" ? queuePage() : null}
+        </main>
   );
 }

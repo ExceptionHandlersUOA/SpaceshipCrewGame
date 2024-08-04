@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react';
-import { ElementTube } from '../ui/chemist/elementTube';
-import './page.css';
-import ResourceBar, { Resources } from '../ui/ResourceBar';
+import { ElementTube } from '../chemist/elementTube';
+import styles from './ChemistPage.module.css';
+import ResourceBar, { Resources } from '../ResourceBar';
 
 export default function Page() {
     const temporaryCorrectSequence = "HOHOHO"; // replace with correctSequence
@@ -25,17 +25,16 @@ export default function Page() {
     };
 
     return (
-        <div className="page">
+        <div className={styles.page}>
             <h1>CHEMIST</h1>
-            <div className="elementtube">
+            <div className={styles.elementTube}>
                 <ElementTube sequence={sequence} />
             </div>
             <div>
-                <button onClick={() => handleButtonClick("H")}>Hydrogen</button>
-                <button onClick={() => handleButtonClick("O")}>Oxygen</button>
+                <button className={styles.button} onClick={() => handleButtonClick("H")}>Hydrogen</button>
+                <button className={styles.button} onClick={() => handleButtonClick("O")}>Oxygen</button>
             </div>
             <ResourceBar resource={Resources.Fuel} value={fuelAmount} />
-
         </div>
     );
 }

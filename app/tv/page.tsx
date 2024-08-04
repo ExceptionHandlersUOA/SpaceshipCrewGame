@@ -5,7 +5,6 @@ import styles from "./page.module.css";
 
 import { Michroma, Chivo_Mono } from "next/font/google";
 import Comm from "../comm";
-import AsteroidField from "./asteroidfield";
 const michroma = Michroma({ weight: '400', subsets: ["latin"] });
 const chivoMono = Chivo_Mono({ weight: '400', subsets: ["latin"] });
 
@@ -157,8 +156,6 @@ function TvDisplay() {
         </div>
         <div className={styles.visual}>
             <div className={styles.visualContainer}>
-                <AsteroidField className={styles.canvas}/>
-
                 <div className={styles.instructions}>
                     <h2>How to play:</h2>
                     <span>TODO</span>
