@@ -1,6 +1,5 @@
 'use client'
 
-import Image from "next/image";
 import styles from "./page.module.css";
 import { useState } from "react";
 import GameOverPage from "./ui/GameOverPage";
@@ -9,11 +8,19 @@ import QueuePage from "./ui/QueuePage";
 import CaptainPage from "./ui/captain/CaptainPage"
 import ChemistPage from "./ui/chemist/ChemistPage"
 import EngineerPage from "./ui/engineer/EngineerPage"
+import Comm from "./comm";
+
+const comm: Comm = new Comm();
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("login")
   const [userRole, setUserRole] = useState("captain")
 
+  // Captain Variables
+  const [fuelAmount, setFuelAmount] = useState(100)
+  const [chemSequence, setChemSequence] = useState("");
+
+  //#region Debugging methods
   const changePage = () => {
     if (currentPage==="play") {
         setCurrentPage("gameover")
@@ -35,10 +42,30 @@ export default function Home() {
       setUserRole("captain")
     }
   };
+  //#endregion
+
+  //#region Captain API Methods
+  function onHarvestAsteroid() {
+    return;
+    // TODO increase water, reduce electricity?
+    comm.actionEvent('harvestAsteroid');
+  }
+
+  function onChangeFuelAmount() {
+    // TODO Get the fuel level from server and pass it on to play page
+    setFuelAmount(fuelAmount+5);
+  }
+
+  function getNewSequence() {
+    // TODO get new sequence from server
+    return;
+    setChemSequence("");
+  }
+  //#endregion
 
   const playPage = () => {
     if (userRole === "captain") {
-      return <CaptainPage />
+      return <CaptainPage handleAsteroidClick={onHarvestAsteroid} fuelAmount={fuelAmount} chemSequence={chemSequence}/>
     } else if (userRole === "chemist") {
       return <ChemistPage />
     } else if (userRole === "engineer")
@@ -56,6 +83,7 @@ export default function Home() {
   const queuePage = () => {
       return <QueuePage />
   }
+
 
   return (
     <main>
