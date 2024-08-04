@@ -23,9 +23,11 @@ export default function Home() {
   const [userId, setUserId] = useState<number | null>(null);
   
   // Captain Variables
-  const [fuelAmount, setFuelAmount] = useState(100)
+  const [fuelAmount, setFuelAmount] = useState(100);
   const [chemSequence, setChemSequence] = useState("");
 
+  // Engineer Variables
+  const [waterAmount, setWaterAmount] = useState(100);
 
   // TODO this is never updated yet
   const [correctSequence, setCorrectSequence] = useState("HOHOHO");
@@ -99,7 +101,7 @@ export default function Home() {
   //#endregion
 
   //#region Captain API Methods
-  function onHarvestAsteroid() {
+  function handleHarvestAsteroid() {
     return;
     // TODO increase water, reduce electricity?
     comm.actionEvent('harvestAsteroid');
@@ -117,13 +119,28 @@ export default function Home() {
   }
   //#endregion
 
+  //#region Engineer API Methods
+  function handleSineMatch() {
+    return;
+    // TODO increase water, reduce electricity?
+    comm.actionEvent('harvestAsteroid');
+  }
+
+  function onChangeWaterAmount() {
+    // TODO Get the fuel level from server and pass it on to play page
+    setWaterAmount(waterAmount+5);
+  }
+
+  //#endregion
+  
+
   const playPage = () => {
     if (userRole === "captain") {
-      return <CaptainPage handleAsteroidClick={onHarvestAsteroid} fuelAmount={fuelAmount} chemSequence={chemSequence}/>
+      return <CaptainPage onAsteroidClick={handleHarvestAsteroid} fuelAmount={fuelAmount} chemSequence={chemSequence}/>
     } else if (userRole === "chemist") {
       return <ChemistPage correctSequence={correctSequence} fuelAmount={state?.resources.fuel ?? 0} onSequenceCorrect={onSequenceCorrect} />
     } else if (userRole === "engineer") {
-      return <EngineerPage />
+      return <EngineerPage onSineMatch={handleSineMatch} waterAmount={waterAmount}/>
     }
   }
 
