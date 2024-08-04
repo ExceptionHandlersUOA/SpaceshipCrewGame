@@ -8,7 +8,20 @@ export default function QueuePage() {
 
     return (
         <div className={styles.container}>
-            <button className={styles.start} onClick={handleStart}>START</button>
+        <div className={styles.card}>
+          <div className={styles.titleContainer}>
+            <span className={styles.emoji}>🚀</span>
+            <p className={styles.titleText}>
+              Welcome to the<br />
+              <i>Ship Lobby!</i>
+            </p>
+            <span className={styles.emoji}>🚀</span>
+          </div>
+          <br />
+          <button className={styles.start} onClick={handleStart}>
+          ➡️ Start ⬅️
+          </button>
         </div>
+      </div>  
     );
 }

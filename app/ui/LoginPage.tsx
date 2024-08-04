@@ -27,8 +27,8 @@ export default function LoginPage() {
             </div>
             <br />
             <div className={styles.buttonContainer}>
-                <button className={styles.primaryButton}>Play (Mobile)</button>
-                <button className={styles.secondaryButton}>Host (Desktop)</button>
+                <button className={styles.primaryButton}>Play 📱</button>
+                <button className={styles.secondaryButton}>Host 🖥️</button>
             </div>
             </div>
         </div>
