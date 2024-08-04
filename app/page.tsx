@@ -2,17 +2,40 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GameOverPage from "./ui/GameOverPage";
 import LoginPage from "./ui/LoginPage";
 import QueuePage from "./ui/QueuePage";
 import CaptainPage from "./ui/captain/CaptainPage"
 import ChemistPage from "./ui/chemist/ChemistPage"
 import EngineerPage from "./ui/engineer/EngineerPage"
+import Comm from "./comm";
+
+const comm: Comm = new Comm();
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("login")
   const [userRole, setUserRole] = useState("captain")
+
+  useEffect(() => {
+    async function doAsyncStuff() {
+      await comm.start();
+    }
+
+    doAsyncStuff().catch((e) => {
+      console.error(e);
+    });
+
+    return () => {
+      comm.stop();
+    };
+  }, []);
+
+  // TODO
+  function onSequenceCorrect(seqLength: number) {
+    // TODO increase fuel, reduce water?
+    comm.actionEvent('correctFormula');
+  }
 
   const changePage = () => {
     if (currentPage==="play") {
@@ -40,9 +63,10 @@ export default function Home() {
     if (userRole === "captain") {
       return <CaptainPage />
     } else if (userRole === "chemist") {
-      return <ChemistPage />
-    } else if (userRole === "engineer")
+      return <ChemistPage correctSequence={""} fuelAmount={0} onSequenceCorrect={onSequenceCorrect} />
+    } else if (userRole === "engineer") {
       return <EngineerPage />
+    }
   }
 
   const gameOverPage = () => {
