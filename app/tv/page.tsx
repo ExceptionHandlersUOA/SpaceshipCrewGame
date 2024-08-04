@@ -141,7 +141,7 @@ function TvDisplay() {
             </div>
             <>
                 {
-                    (false) ?
+                    (gameState === 'inGame' || gameState === 'gameOver') ?
                         <div className={styles.timer}>
                             <span className={(styles.time + ' ' + chivoMono.className)}>{getElapsedString(timeSecs)}</span>
                             <span className={styles.label}>Time Survived</span>
