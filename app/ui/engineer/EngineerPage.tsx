@@ -5,6 +5,7 @@ import styles from "./EngineerPage.module.css"
 import SineGraph from '../engineer/SineGraph';
 import ResourceBar, { Resources } from "../ResourceBar";
 
+
 export default function EngineerPage({onSineMatch, waterAmount}: {onSineMatch: any, waterAmount: any}) {
     const [electricityAmount, setElectricityAmount] = useState(0)
 
@@ -18,7 +19,7 @@ export default function EngineerPage({onSineMatch, waterAmount}: {onSineMatch: a
                 margin: '10px'              // Optional: Add margin outside the border
             }} */}
             <h2>Match the waves!</h2>
-            <SineGraph />
+            <SineGraph sineMatch={onSineMatch}/>
             <ResourceBar resource={Resources.Electricity} value={electricityAmount} />
         </div>
     );

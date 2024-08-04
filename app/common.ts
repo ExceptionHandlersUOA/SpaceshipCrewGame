@@ -11,6 +11,7 @@ export type RoleData = {
 /* TODO the structure of this will need to be changed, and it must match the client/server protocol */
 export type State = {
     // TODO
+    currentSequence: string;
     gameState: GameStateType;
     roles: { [user_id: string | number]: RoleData };
     resources: {

@@ -39,11 +39,6 @@ export class BasicComm {
     private connection: signalR.HubConnection;
 
     /**
-     * Handlers for messages from the server.
-     */
-    private receiveHandlers: { [protocolId: string]: (data: ReceiveMessage) => void } = {};
-
-    /**
      * Create a new SignalR client.
      * Remember to call start() to start the connection.
      */
@@ -51,14 +46,6 @@ export class BasicComm {
         this.connection = new signalR.HubConnectionBuilder()
             .withUrl(SIGNALR_URL)
             .build();
-
-        this.connection.on('ServerToClient', (protocolId: string, data: any) => {
-            console.log("Comm receive", protocolId, data);
-            const handler = this.receiveHandlers[protocolId];
-            if (handler) {
-                handler(data);
-            }
-        });
     }
 
     /**
@@ -95,7 +82,11 @@ export class BasicComm {
      */
     protected on(protocolId: ReceiveProtocolId, newMethod: (arg: ReceiveMessage) => void): void {
         console.log("Comm on", protocolId);
-        this.receiveHandlers[protocolId] = newMethod;
+
+        this.connection.on(protocolId, (data: any) => {
+            console.log("Comm receive", protocolId, data);
+            newMethod(data);
+        });
     }
 }
 

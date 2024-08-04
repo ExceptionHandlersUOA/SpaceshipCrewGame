@@ -49,4 +49,9 @@
   .start:hover {
     background-color: #005ea6;
   }
+
+  .start:disabled {
+    background-color: #7f8c8d;
+    cursor: not-allowed;
+  }
   

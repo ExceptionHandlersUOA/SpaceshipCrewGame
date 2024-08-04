@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { GameStateType, NICE_ROLE_NAME, RoleData, RoleName, State } from "../common";
 import styles from "./page.module.css";
+import AsteroidField from "../ui/captain/AsteroidField";
 
 import { Michroma, Chivo_Mono } from "next/font/google";
 import Comm from "../comm";
@@ -86,6 +87,7 @@ function TvDisplay() {
             console.log(state);
             setState(state);
             setGameState(state.gameState);
+            gameStateRef.current = state.gameState;
         });
 
         comm.onGameNotReady(() => { setIsGameReady(false); });
@@ -141,7 +143,7 @@ function TvDisplay() {
             </div>
             <>
                 {
-                    (false) ?
+                    (gameState === 'inGame' || gameState === 'gameOver') ?
                         <div className={styles.timer}>
                             <span className={(styles.time + ' ' + chivoMono.className)}>{getElapsedString(timeSecs)}</span>
                             <span className={styles.label}>Time Survived</span>
@@ -156,6 +158,7 @@ function TvDisplay() {
         </div>
         <div className={styles.visual}>
             <div className={styles.visualContainer}>
+                <AsteroidField className={styles.canvas} onAsteroidClick={() => {}}></AsteroidField>
                 <div className={styles.instructions}>
                     <h2>How to play:</h2>
                     <span>TODO</span>
