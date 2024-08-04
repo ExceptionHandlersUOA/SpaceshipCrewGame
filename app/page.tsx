@@ -44,6 +44,7 @@ export default function Home() {
     comm.onState((state: State) => {
       console.log(state);
       setState(state);
+      stateRef.current = state;
       setGameState(state.gameState);
     });
 
@@ -81,15 +82,14 @@ export default function Home() {
     comm.roomJoin(roomCode, username).then((res) => {
       if (res?.userId != null) {
         setUserId(res.userId);
+        userIdRef.current = res.userId;
         setCurrentPage("queue");
       }
     });
   }
 
   function onGameStartPressed() {
-    comm.roomStart().then(() => {
-      console.log("TODO");
-    });
+    comm.roomStart().then(() => {});
   }
 
   //#region Debugging methods
