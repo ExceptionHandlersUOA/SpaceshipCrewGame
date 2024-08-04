@@ -10,8 +10,9 @@
 }
 
 /* Edit this to make it look tubey */
-.elementtube {
+.elementTube {
     position: relative;
+    max-width: 90%;
     margin: 0;
     padding: 1rem;
     background-color: rgba(var(--callout-rgb), 0.5);
@@ -19,16 +20,21 @@
     border-radius: var(--border-radius);
 }
 
+.buttonStyle {
+    width: 80%;
+}
+
 .button {
     border-radius: 8px;
     border: 2px solid white;
     /* padding: 0.6em 0.6em; */
-    width: 7em;
+    width: 50%;
     height: 2.4em;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 1000;
     font-family: inherit;
     background-color: black;
+    color: white;
     cursor: pointer;
     transition: border 0.1s linear, outline 0.1s linear;
 }

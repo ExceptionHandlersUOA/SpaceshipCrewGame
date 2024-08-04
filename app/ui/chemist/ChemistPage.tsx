@@ -28,7 +28,7 @@ export default function ChemistPage({correctSequence, fuelAmount, onSequenceCorr
             <div className={styles.elementTube}>
                 <ElementTube sequence={sequence} />
             </div>
-            <div>
+            <div className={styles.buttonStyle}>
                 <button className={styles.button + ' ' + styles.left} onClick={() => handleButtonClick("H")}>H<sub>ydrogen</sub></button>
                 <button className={styles.button + ' ' + styles.right} onClick={() => handleButtonClick("O")}>O<sub>xygen</sub></button>
             </div>
