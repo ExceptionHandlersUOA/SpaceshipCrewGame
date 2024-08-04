@@ -127,7 +127,7 @@ function TvDisplay() {
         <div className={styles.infoColumn}>
             <div>
                 <div>
-                    <h1>Among Us 2</h1>
+                    <h1>Amidst Us</h1>
                 </div>
                 <div className={styles.playerList}>
                     {
