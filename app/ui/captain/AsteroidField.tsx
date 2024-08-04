@@ -37,9 +37,10 @@ function setUpCanvas(canvas: HTMLCanvasElement, onAsteroidClick: () => void) {
     }
 
     // should be jagged and uneven
-    const asteroidGeometry: [number, number][] = [];
+    let asteroidGeometry: [number, number][] = [];
 
     function regenAsteroidGeometry() {
+        asteroidGeometry = [];
         for (let i = 0; i < 30; i++) {
             let theta = (i / 30) * Math.PI * 2;
             let radius = 50 + Math.random() * 20;
@@ -97,6 +98,7 @@ function setUpCanvas(canvas: HTMLCanvasElement, onAsteroidClick: () => void) {
     }
 
     function clearAsteroid() {
+        regenAsteroidGeometry();
         asteroid.y = -100;
         const gapX = 100;
         asteroid.x = Math.random() * (width - gapX * 2) + gapX;

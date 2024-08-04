@@ -1,7 +1,7 @@
 'use client'
 
 import styles from "./page.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GameOverPage from "./ui/GameOverPage";
 import LoginPage from "./ui/LoginPage";
 import QueuePage from "./ui/QueuePage";
@@ -9,16 +9,70 @@ import CaptainPage from "./ui/captain/CaptainPage"
 import ChemistPage from "./ui/chemist/ChemistPage"
 import EngineerPage from "./ui/engineer/EngineerPage"
 import Comm from "./comm";
+import { GameStateType, State } from "./common";
 
 const comm: Comm = new Comm();
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("login")
   const [userRole, setUserRole] = useState("captain")
-
+  
+  const [state, setState] = useState<State | null>(null);
+  const [gameState, setGameState] = useState<GameStateType | null>(null);
+  const [isGameReady, setIsGameReady] = useState(false);
+  const [userId, setUserId] = useState<number | null>(null);
+  
   // Captain Variables
   const [fuelAmount, setFuelAmount] = useState(100)
   const [chemSequence, setChemSequence] = useState("");
+
+
+  // TODO this is never updated yet
+  const [correctSequence, setCorrectSequence] = useState("HOHOHO");
+
+  useEffect(() => {
+    async function doAsyncStuff() {
+      await comm.start();
+    }
+
+    comm.onState((state: State) => {
+      console.log(state);
+      setState(state);
+      setGameState(state.gameState);
+    });
+
+    comm.onGameNotReady(() => { setIsGameReady(false); });
+    comm.onGameReady(() => { setIsGameReady(true); });
+
+    doAsyncStuff().catch((e) => {
+      console.error(e);
+    });
+
+    return () => {
+      comm.stop();
+    };
+  }, []);
+
+  // TODO
+  function onSequenceCorrect(seqLength: number) {
+    // TODO increase fuel, reduce water?
+    comm.actionEvent('correctFormula');
+  }
+
+  function onLoginPressed(roomCode: string, username: string) {
+    comm.roomJoin(roomCode, username).then((res) => {
+      if (res?.userId != null) {
+        setUserId(res.userId);
+        setCurrentPage("queue");
+      }
+    });
+  }
+
+  function onGameStartPressed() {
+    comm.roomStart().then(() => {
+      console.log("TODO");
+    });
+  }
 
   //#region Debugging methods
   const changePage = () => {
@@ -67,9 +121,10 @@ export default function Home() {
     if (userRole === "captain") {
       return <CaptainPage handleAsteroidClick={onHarvestAsteroid} fuelAmount={fuelAmount} chemSequence={chemSequence}/>
     } else if (userRole === "chemist") {
-      return <ChemistPage />
-    } else if (userRole === "engineer")
+      return <ChemistPage correctSequence={correctSequence} fuelAmount={state?.resources.fuel ?? 0} onSequenceCorrect={onSequenceCorrect} />
+    } else if (userRole === "engineer") {
       return <EngineerPage />
+    }
   }
 
   const gameOverPage = () => {
@@ -77,11 +132,11 @@ export default function Home() {
   }
 
   const loginPage = () => {
-      return <LoginPage />
+      return <LoginPage onLoginPressed={onLoginPressed} />
   }
 
   const queuePage = () => {
-      return <QueuePage />
+      return <QueuePage canStart={isGameReady} onStart={onGameStartPressed} />
   }
 
 
