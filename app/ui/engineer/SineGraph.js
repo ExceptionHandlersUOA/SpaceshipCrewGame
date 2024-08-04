@@ -136,7 +136,7 @@ export default function SineGraph(sineMatch) {
         if (magnitude === staticData.staticMagnitude ){
             if (phase === staticData.staticPhase) {
                 if (frequency === staticData.staticFrequency) {
-                    SineMatch()
+                    sineMatch()
                 }
             }
         }
