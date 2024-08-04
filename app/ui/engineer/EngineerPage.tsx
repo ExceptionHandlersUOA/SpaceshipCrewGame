@@ -7,9 +7,6 @@ import ResourceBar, { Resources } from "../ResourceBar";
 
 
 export default function EngineerPage({onSineMatch, waterAmount}: {onSineMatch: any, waterAmount: any}) {
-    const [electricityAmount, setElectricityAmount] = useState(0)
-
-
     return (
         <div className={styles.playPage}>
             <h1>ENGINEER</h1>
@@ -20,7 +17,7 @@ export default function EngineerPage({onSineMatch, waterAmount}: {onSineMatch: a
             }} */}
             <h2>Match the waves!</h2>
             <SineGraph sineMatch={onSineMatch}/>
-            <ResourceBar resource={Resources.Electricity} value={electricityAmount} />
+            <ResourceBar resource={Resources.Water} value={waterAmount} />
         </div>
     );
 }
