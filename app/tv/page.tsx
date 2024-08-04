@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 
 import { Michroma, Chivo_Mono } from "next/font/google";
 import Comm from "../comm";
+import AsteroidField from "./asteroidfield";
 const michroma = Michroma({ weight: '400', subsets: ["latin"] });
 const chivoMono = Chivo_Mono({ weight: '400', subsets: ["latin"] });
 
@@ -47,72 +48,6 @@ function playerList(players: { [user_id: string | number]: RoleData }) {
             );
         });
     }
-}
-
-function setUpCanvas(canvas: HTMLCanvasElement) {
-    // draw a starfield effect
-
-    const ctxNullable = canvas.getContext('2d');
-    if (ctxNullable == null) {
-        return;
-    }
-    const ctx = ctxNullable;
-
-    // set canvas size to parent container
-    if (canvas.parentElement != null) {
-        canvas.width = canvas.parentElement.clientWidth;
-        canvas.height = canvas.parentElement.clientHeight;
-    }
-
-    const width = canvas.width;
-    const height = canvas.height;
-
-    const starCount = 100;
-    const stars: { x: number; y: number; size: number; }[] = [];
-    for (let i = 0; i < starCount; i++) {
-        stars.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            size: Math.random() * 3,
-        });
-    }
-
-    function drawStar(star: {x: number, y: number, size: number}) {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
-        ctx.fillStyle = 'white';
-        ctx.fill();
-    }
-
-    // draws an old-school style asteroid (like the game asteroids)
-    function drawAsteroid() {
-    }
-
-    function draw() {
-        ctx.fillStyle = 'black';
-        ctx.fillRect(0, 0, width, height);
-        for (const star of stars) {
-            drawStar(star);
-        }
-    }
-
-    function update() {
-        for (const star of stars) {
-            star.y += 0.5;
-            star.x += (star.x - width / 2) * 0.001 * star.y / height;
-            if (star.y > height) {
-                star.y = 0;
-            }
-        }
-    }
-
-    function loop() {
-        update();
-        draw();
-        requestAnimationFrame(loop);
-    }
-
-    loop();
 }
 
 const comm = new Comm();
@@ -169,8 +104,6 @@ function TvDisplay() {
             console.error(e);
         });
 
-        setUpCanvas(document.getElementById('starCanvas') as HTMLCanvasElement);
-
         return () => {
             clearInterval(interval);
             comm.stop();
@@ -224,9 +157,7 @@ function TvDisplay() {
         </div>
         <div className={styles.visual}>
             <div className={styles.visualContainer}>
-                <canvas id="starCanvas" className={styles.canvas}>
-
-                </canvas>
+                <AsteroidField className={styles.canvas}/>
 
                 <div className={styles.instructions}>
                     <h2>How to play:</h2>
