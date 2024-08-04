@@ -1,7 +1,7 @@
 'use client'
 
 import styles from "./page.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import GameOverPage from "./ui/GameOverPage";
 import LoginPage from "./ui/LoginPage";
 import QueuePage from "./ui/QueuePage";
@@ -23,12 +23,18 @@ export default function Home() {
   const [userId, setUserId] = useState<number | null>(null);
   
   // Captain Variables
-  const [fuelAmount, setFuelAmount] = useState(100)
+  const [fuelAmount, setFuelAmount] = useState(100);
   const [chemSequence, setChemSequence] = useState("");
 
+  // Engineer Variables
+  const [waterAmount, setWaterAmount] = useState(100);
 
   // TODO this is never updated yet
   const [correctSequence, setCorrectSequence] = useState("HOHOHO");
+
+  // reference to state, userid
+  const stateRef = useRef(state);
+  const userIdRef = useRef(userId);
 
   useEffect(() => {
     async function doAsyncStuff() {
@@ -38,11 +44,24 @@ export default function Home() {
     comm.onState((state: State) => {
       console.log(state);
       setState(state);
+      stateRef.current = state;
       setGameState(state.gameState);
     });
 
     comm.onGameNotReady(() => { setIsGameReady(false); });
     comm.onGameReady(() => { setIsGameReady(true); });
+
+    comm.onGameStart(() => {
+      const roleId = stateRef.current?.roles[userIdRef.current as number]?.roleId;
+      if (roleId != null) {
+        setUserRole(roleId);
+        setCurrentPage("play");
+      }
+    });
+
+    comm.onGameEnd(() => {
+      setCurrentPage("gameover");
+    });
 
     doAsyncStuff().catch((e) => {
       console.error(e);
@@ -63,15 +82,14 @@ export default function Home() {
     comm.roomJoin(roomCode, username).then((res) => {
       if (res?.userId != null) {
         setUserId(res.userId);
+        userIdRef.current = res.userId;
         setCurrentPage("queue");
       }
     });
   }
 
   function onGameStartPressed() {
-    comm.roomStart().then(() => {
-      console.log("TODO");
-    });
+    comm.roomStart().then(() => {});
   }
 
   //#region Debugging methods
@@ -99,7 +117,7 @@ export default function Home() {
   //#endregion
 
   //#region Captain API Methods
-  function onHarvestAsteroid() {
+  function handleHarvestAsteroid() {
     return;
     // TODO increase water, reduce electricity?
     comm.actionEvent('harvestAsteroid');
@@ -117,13 +135,28 @@ export default function Home() {
   }
   //#endregion
 
+  //#region Engineer API Methods
+  function handleSineMatch() {
+    return;
+    // TODO increase water, reduce electricity?
+    comm.actionEvent('harvestAsteroid');
+  }
+
+  function onChangeWaterAmount() {
+    // TODO Get the fuel level from server and pass it on to play page
+    setWaterAmount(waterAmount+5);
+  }
+
+  //#endregion
+  
+
   const playPage = () => {
-    if (userRole === "captain") {
-      return <CaptainPage handleAsteroidClick={onHarvestAsteroid} fuelAmount={fuelAmount} chemSequence={chemSequence}/>
+    if (userRole === "pilot") {
+      return <CaptainPage onAsteroidClick={handleHarvestAsteroid} fuelAmount={fuelAmount} chemSequence={chemSequence}/>
     } else if (userRole === "chemist") {
       return <ChemistPage correctSequence={correctSequence} fuelAmount={state?.resources.fuel ?? 0} onSequenceCorrect={onSequenceCorrect} />
     } else if (userRole === "engineer") {
-      return <EngineerPage />
+      return <EngineerPage onSineMatch={handleSineMatch} waterAmount={waterAmount}/>
     }
   }
 

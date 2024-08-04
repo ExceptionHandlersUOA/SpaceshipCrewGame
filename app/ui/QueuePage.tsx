@@ -22,7 +22,9 @@ export default function QueuePage({ canStart, onStart }: { canStart: boolean, on
           </div>
           <br />
           <button className={styles.start} onClick={handleStart} disabled={!canStart}>
-          ➡️ Start ⬅️
+            {
+              canStart ? '➡️ Start ⬅️' : 'Waiting for players...'
+            }
           </button>
         </div>
       </div>  
