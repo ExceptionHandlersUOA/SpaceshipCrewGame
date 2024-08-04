@@ -1,7 +1,7 @@
 'use client'
 
 import styles from "./page.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import GameOverPage from "./ui/GameOverPage";
 import LoginPage from "./ui/LoginPage";
 import QueuePage from "./ui/QueuePage";
@@ -32,6 +32,10 @@ export default function Home() {
   // TODO this is never updated yet
   const [correctSequence, setCorrectSequence] = useState("HOHOHO");
 
+  // reference to state, userid
+  const stateRef = useRef(state);
+  const userIdRef = useRef(userId);
+
   useEffect(() => {
     async function doAsyncStuff() {
       await comm.start();
@@ -45,6 +49,18 @@ export default function Home() {
 
     comm.onGameNotReady(() => { setIsGameReady(false); });
     comm.onGameReady(() => { setIsGameReady(true); });
+
+    comm.onGameStart(() => {
+      const roleId = stateRef.current?.roles[userIdRef.current as number]?.roleId;
+      if (roleId != null) {
+        setUserRole(roleId);
+        setCurrentPage("play");
+      }
+    });
+
+    comm.onGameEnd(() => {
+      setCurrentPage("gameover");
+    });
 
     doAsyncStuff().catch((e) => {
       console.error(e);
@@ -135,7 +151,7 @@ export default function Home() {
   
 
   const playPage = () => {
-    if (userRole === "captain") {
+    if (userRole === "pilot") {
       return <CaptainPage onAsteroidClick={handleHarvestAsteroid} fuelAmount={fuelAmount} chemSequence={chemSequence}/>
     } else if (userRole === "chemist") {
       return <ChemistPage correctSequence={correctSequence} fuelAmount={state?.resources.fuel ?? 0} onSequenceCorrect={onSequenceCorrect} />
