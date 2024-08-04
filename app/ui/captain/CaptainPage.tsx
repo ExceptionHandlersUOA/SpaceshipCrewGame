@@ -7,7 +7,7 @@ import styles from "./CaptainPage.module.css"
 import ResourceBar, { Resources } from "../ResourceBar";
 import AsteroidField from "../captain/AsteroidField";
 
-export default function CaptainPage({ handleAsteroidClick, fuelAmount, chemSequence }: { handleAsteroidClick: () => void, fuelAmount: number, chemSequence: string }) {
+export default function CaptainPage({ onAsteroidClick, fuelAmount, chemSequence }: { onAsteroidClick: () => void, fuelAmount: number, chemSequence: string }) {
     const [resourceAmount, setResourceAmount] = useState(0)
 
     /** Debugging methods */
@@ -24,7 +24,7 @@ export default function CaptainPage({ handleAsteroidClick, fuelAmount, chemSeque
     
     return (
         <div className={styles.playPage}>
-                <AsteroidField onAsteroidClick={handleAsteroidClick} className={styles.canvas}/>
+                <AsteroidField onAsteroidClick={onAsteroidClick} className={styles.canvas}/>
                 {/* <DirectionBar redSection={2} /> */}
                 <TextField text={"OHHOHOO"} />
                 <ResourceBar resource={Resources.Electricity} value={resourceAmount} />
