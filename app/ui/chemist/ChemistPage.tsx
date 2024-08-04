@@ -5,19 +5,15 @@ import { ElementTube } from '../chemist/elementTube';
 import styles from './ChemistPage.module.css';
 import ResourceBar, { Resources } from '../ResourceBar';
 
-export default function Page() {
-    const temporaryCorrectSequence = "HOHOHO"; // replace with correctSequence
-    // removed from Page() props:  { correctSequence }: { correctSequence: string }
+export default function Page({ correctSequence, fuelAmount, onSequenceCorrect }: { correctSequence: string, fuelAmount: number, onSequenceCorrect: (seqLength: number) => void }) {
     const [sequence, setSequence] = useState("");
 
-    const [fuelAmount, setFuelAmount] = useState(0);
-
     const handleButtonClick = (element: string) => {
-        if (temporaryCorrectSequence === sequence + element) {
-            setFuelAmount(fuelAmount + sequence.length);
+        if (correctSequence === sequence + element) {
+            onSequenceCorrect(sequence.length);
             // reduce water
             setSequence(sequence + element + " (correct sequence!)");
-        } else if (temporaryCorrectSequence.startsWith(sequence + element)) {
+        } else if (correctSequence.startsWith(sequence + element)) {
             setSequence(sequence + element);
         } else {
             setSequence(element);
@@ -31,8 +27,8 @@ export default function Page() {
                 <ElementTube sequence={sequence} />
             </div>
             <div>
-                <button className={styles.button} onClick={() => handleButtonClick("H")}>Hydrogen</button>
-                <button className={styles.button} onClick={() => handleButtonClick("O")}>Oxygen</button>
+                <button className={styles.button + ' ' + styles.left} onClick={() => handleButtonClick("H")}>H<sub>ydrogen</sub></button>
+                <button className={styles.button + ' ' + styles.right} onClick={() => handleButtonClick("O")}>O<sub>xygen</sub></button>
             </div>
             <ResourceBar resource={Resources.Fuel} value={fuelAmount} />
         </div>

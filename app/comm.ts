@@ -163,19 +163,19 @@ export default class Comm extends BasicComm {
         return this.send('RoomStart', {}) as Promise<void>;
     }
 
-    public async actionButton(actionId: string, userId: number, direction: 'down' | 'up'): Promise<void> {
+    public async actionButton(actionId: string, direction: 'down' | 'up'): Promise<void> {
         return this.send('ActionButton', {actionId: actionId, direction: direction}) as Promise<void>;
     }
 
-    public async actionEvent(actionId: string, userId: number): Promise<void> {
+    public async actionEvent(actionId: string): Promise<void> {
         return this.send('ActionEvent', {actionId: actionId}) as Promise<void>;
     }
 
-    public async actionSwitch(actionId: string, userId: number, value: boolean): Promise<void> {
+    public async actionSwitch(actionId: string, value: boolean): Promise<void> {
         return this.send('ActionSwitch', {actionId: actionId, value: value}) as Promise<void>;
     }
 
-    public async actionNumber(actionId: string, userId: number, value: number): Promise<void> {
+    public async actionNumber(actionId: string, value: number): Promise<void> {
         return this.send('ActionNumber', {actionId: actionId, value: value}) as Promise<void>;
     }
 

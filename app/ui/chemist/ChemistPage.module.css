@@ -5,7 +5,7 @@
     align-items: center;
     flex-direction: column;
     row-gap: 50px;
-    background: linear-gradient(to bottom, #ffffff, #000000);
+    background: linear-gradient(to bottom, #242, #000);
     min-height: 100vh;
 }
 
@@ -21,14 +21,45 @@
 
 .button {
     border-radius: 8px;
-    border: 2px solid black;
+    border: 2px solid white;
     /* padding: 0.6em 0.6em; */
     width: 7em;
     height: 2.4em;
-    font-size: 1em;
+    font-size: 2em;
     font-weight: 1000;
     font-family: inherit;
-    background-color: white;
+    background-color: black;
     cursor: pointer;
-    transition: border-color 0.25s;
+    transition: border 0.1s linear, outline 0.1s linear;
+}
+
+.button.left {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right-width: 1px;
+    border-right-color: #222;
+    background: linear-gradient(90deg, #007 0%, #000 100%);
+}
+
+.button.right {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-left-width: 1px;
+    border-left-color: #222;
+    background: linear-gradient(90deg, #000 0%, #700 100%);
+}
+
+.button:active {
+    /* animate glow */
+    transition: border 0.1s linear, outline 0.1s linear;
+    border: 10px solid #fff;
+    outline: 10px solid #fff;
+}
+
+.button.right:active {
+    border-color: #e00;
+}
+
+.button.left:active {
+    border-color: #00e;
 }
