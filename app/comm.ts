@@ -22,10 +22,12 @@ export type RoomCreateAck = {roomCode: string};
 export type TutorialEnd = {};
 export type TutorialStart = {};
 
+export type WriteMessage = { message: string; colorHex: string };
+
 export type SendProtocolId = 'RoomJoin' | 'RoomStart' | 'ActionButton' | 'ActionEvent' | 'ActionSwitch' | 'ActionNumber' | 'SelectRole' | 'RoomCreate' | 'TutorialEnd';
 export type SendMessage = RoomJoin | RoomStart | ActionButton | ActionEvent | ActionSwitch | ActionNumber | RoomCreate | TutorialEnd;
 export type ReceiveProtocolId = 'TutorialStart' | 'State' | 'WriteMessage' | 'GameReady' | 'GameNotReady' | 'GameEnd' | 'GameStart';
-export type ReceiveMessage = TutorialStart | State | string;
+export type ReceiveMessage = TutorialStart | State | WriteMessage;
 export type ResponseMessage = RoomJoinAck | RoomCreateAck;
 
 /**
@@ -108,7 +110,7 @@ export default class Comm extends BasicComm {
             this.cbOnState(data);
         }) as ((data: ReceiveMessage) => void));
 
-        this.on('WriteMessage', ((data: string) => {
+        this.on('WriteMessage', ((data: WriteMessage) => {
             this.cbOnWriteMessage(data);
         }) as ((data: ReceiveMessage) => void));
 
@@ -140,7 +142,7 @@ export default class Comm extends BasicComm {
 
     private cbOnTutorialStart: (data: TutorialStart) => void = () => {};
     private cbOnState: (data: State) => void = () => {};
-    private cbOnWriteMessage: (data: string) => void = () => {};
+    private cbOnWriteMessage: (data: WriteMessage) => void = () => {};
     private cbOnGameReady: () => void = () => {};
     private cbOnGameNotReady: () => void = () => {};
     private cbOnGameEnd: () => void = () => {};
@@ -190,7 +192,7 @@ export default class Comm extends BasicComm {
         this.cbOnState = newMethod;
     }
 
-    public onWriteMessage(newMethod: (data: string) => void): void {
+    public onWriteMessage(newMethod: (data: WriteMessage) => void): void {
         this.cbOnWriteMessage = newMethod;
     }
 
