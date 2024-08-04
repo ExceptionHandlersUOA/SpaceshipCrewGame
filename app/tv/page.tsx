@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import AsteroidField from "../ui/captain/AsteroidField";
 
 import { Michroma, Chivo_Mono } from "next/font/google";
-import Comm from "../comm";
+import Comm, { WriteMessage } from "../comm";
 const michroma = Michroma({ weight: '400', subsets: ["latin"] });
 const chivoMono = Chivo_Mono({ weight: '400', subsets: ["latin"] });
 
@@ -68,6 +68,8 @@ function TvDisplay() {
     const [gameState, setGameState] = useState<GameStateType>('lobby');
     const gameStateRef = useRef(gameState);
 
+    const [messageLog, setMessageLog] = useState<WriteMessage[]>([]);
+
     useEffect(() => {
         async function doAsyncStuff() {
             await comm.start();
@@ -79,8 +81,8 @@ function TvDisplay() {
             }
         }
 
-        comm.onWriteMessage((data: string) => {
-            console.log(data);
+        comm.onWriteMessage((data: WriteMessage) => {
+            setMessageLog((msgLog) => [...msgLog.slice(-7), data]);
         });
 
         comm.onState((state: State) => {
@@ -162,6 +164,15 @@ function TvDisplay() {
                 <div className={styles.instructions}>
                     <h2>How to play:</h2>
                     <span>TODO</span>
+                </div>
+                <div className={styles.log}>
+                    <ul className={styles.ul}>
+                        {
+                            messageLog.map((message, index) => {
+                                return <li key={index} style={{color: message.colorHex}} className={styles.li}>{message.message}</li>;
+                            })
+                        }
+                    </ul>
                 </div>
             </div>
         </div>
