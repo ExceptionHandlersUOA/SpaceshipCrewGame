@@ -6,9 +6,47 @@
     height: 100vh;
     background: linear-gradient(to bottom, #001f3f, #000000);
     color: white;
-}
-
-.start {
-    color: black;
-    background-color: white;
-}
+  }
+  
+  .card {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .titleText {
+    font-size: 28px;
+    margin: 0 10px;
+    word-wrap: break-word;
+  }
+  
+  .emoji {
+    font-size: 24px;
+  }
+  
+  .start {
+    background-color: #0074d9;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .start:hover {
+    background-color: #005ea6;
+  }
+  

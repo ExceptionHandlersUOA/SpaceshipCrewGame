@@ -1,0 +1,23 @@
+.playPage {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 50px;
+    /* Background subject to change */
+    background: linear-gradient(to bottom, #9c00a8, #000000);
+    min-height: 100vh;
+}
+
+.button {
+    background-color: blue;
+    width: 150px;
+    height: 100px;
+}
+
+.gameOverPage {
+    background-color: red;
+    width: 100vw;
+    height: 100vh;
+}
