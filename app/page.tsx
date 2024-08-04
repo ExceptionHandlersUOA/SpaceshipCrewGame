@@ -1,6 +1,5 @@
 'use client'
 
-import Image from "next/image";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import GameOverPage from "./ui/GameOverPage";
@@ -17,11 +16,16 @@ const comm: Comm = new Comm();
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("login")
   const [userRole, setUserRole] = useState("captain")
-
+  
   const [state, setState] = useState<State | null>(null);
   const [gameState, setGameState] = useState<GameStateType | null>(null);
   const [isGameReady, setIsGameReady] = useState(false);
   const [userId, setUserId] = useState<number | null>(null);
+  
+  // Captain Variables
+  const [fuelAmount, setFuelAmount] = useState(100)
+  const [chemSequence, setChemSequence] = useState("");
+
 
   // TODO this is never updated yet
   const [correctSequence, setCorrectSequence] = useState("HOHOHO");
@@ -70,6 +74,7 @@ export default function Home() {
     });
   }
 
+  //#region Debugging methods
   const changePage = () => {
     if (currentPage==="play") {
         setCurrentPage("gameover")
@@ -91,10 +96,30 @@ export default function Home() {
       setUserRole("captain")
     }
   };
+  //#endregion
+
+  //#region Captain API Methods
+  function onHarvestAsteroid() {
+    return;
+    // TODO increase water, reduce electricity?
+    comm.actionEvent('harvestAsteroid');
+  }
+
+  function onChangeFuelAmount() {
+    // TODO Get the fuel level from server and pass it on to play page
+    setFuelAmount(fuelAmount+5);
+  }
+
+  function getNewSequence() {
+    // TODO get new sequence from server
+    return;
+    setChemSequence("");
+  }
+  //#endregion
 
   const playPage = () => {
     if (userRole === "captain") {
-      return <CaptainPage />
+      return <CaptainPage handleAsteroidClick={onHarvestAsteroid} fuelAmount={fuelAmount} chemSequence={chemSequence}/>
     } else if (userRole === "chemist") {
       return <ChemistPage correctSequence={correctSequence} fuelAmount={state?.resources.fuel ?? 0} onSequenceCorrect={onSequenceCorrect} />
     } else if (userRole === "engineer") {
@@ -113,6 +138,7 @@ export default function Home() {
   const queuePage = () => {
       return <QueuePage canStart={isGameReady} onStart={onGameStartPressed} />
   }
+
 
   return (
     <main>

@@ -5,7 +5,7 @@ import styles from "./EngineerPage.module.css"
 import SineGraph from '../engineer/SineGraph';
 import ResourceBar, { Resources } from "../ResourceBar";
 
-export default function Page() {
+export default function EngineerPage() {
     const [electricityAmount, setElectricityAmount] = useState(0)
 
 

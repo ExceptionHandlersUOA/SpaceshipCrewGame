@@ -5,7 +5,9 @@ import { ElementTube } from '../chemist/elementTube';
 import styles from './ChemistPage.module.css';
 import ResourceBar, { Resources } from '../ResourceBar';
 
-export default function Page({ correctSequence, fuelAmount, onSequenceCorrect }: { correctSequence: string, fuelAmount: number, onSequenceCorrect: (seqLength: number) => void }) {
+export default function ChemistPage() {
+    const temporaryCorrectSequence = "HOHOHO"; // replace with correctSequence
+    // removed from Page() props:  { correctSequence }: { correctSequence: string }
     const [sequence, setSequence] = useState("");
 
     const handleButtonClick = (element: string) => {
