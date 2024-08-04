@@ -53,7 +53,7 @@
 }
   
 .primaryButton {
-    background-color: #0074d9;
+    background-color: #ff851b;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -64,11 +64,11 @@
 }
   
 .primaryButton:hover {
-    background-color: #005ea6;
+    background-color: #d65c00;
 }
   
 .secondaryButton {
-    background-color: #ff851b;
+    background-color: #0074d9;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -79,6 +79,6 @@
 }
   
 .secondaryButton:hover {
-    background-color: #d65c00;
+    background-color: #005ea6;
 }
   

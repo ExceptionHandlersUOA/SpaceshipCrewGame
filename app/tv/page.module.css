@@ -18,6 +18,8 @@
         flex-direction: column;
         justify-content: space-between;
 
+        background: linear-gradient(90deg, rgba(9, 105, 34, 0.5) 0%, transparent 100%);
+
         .playerList {
             .playerRow {
                 padding-top: 20px;
@@ -62,7 +64,6 @@
 
     .visual {
         flex-grow: 1;
-        background-color: green;
         .visualContainer {
             padding: 10px;
             position: relative;
