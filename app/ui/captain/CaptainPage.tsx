@@ -25,6 +25,7 @@ export default function CaptainPage({ onAsteroidClick, fuelAmount, chemSequence 
     return (
         <div className={styles.playPage}>
             <h1>CAPTAIN</h1>
+            <h2>Shoot the asteroids and relay the formula!</h2>
             {/* <DirectionBar redSection={2} /> */}
             <TextField text={chemSequence} />
             <ResourceBar resource={Resources.Fuel} value={fuelAmount} />
