@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import AsteroidField from "../ui/captain/AsteroidField";
 
 import { Michroma, Chivo_Mono } from "next/font/google";
-import Comm from "../comm";
+import Comm, { WriteMessage } from "../comm";
 const michroma = Michroma({ weight: '400', subsets: ["latin"] });
 const chivoMono = Chivo_Mono({ weight: '400', subsets: ["latin"] });
 
@@ -68,6 +68,8 @@ function TvDisplay() {
     const [gameState, setGameState] = useState<GameStateType>('lobby');
     const gameStateRef = useRef(gameState);
 
+    const [messageLog, setMessageLog] = useState<WriteMessage[]>([]);
+
     useEffect(() => {
         async function doAsyncStuff() {
             await comm.start();
@@ -79,8 +81,8 @@ function TvDisplay() {
             }
         }
 
-        comm.onWriteMessage((data: string) => {
-            console.log(data);
+        comm.onWriteMessage((data: WriteMessage) => {
+            setMessageLog((msgLog) => [...msgLog.slice(-7), data]);
         });
 
         comm.onState((state: State) => {
@@ -125,7 +127,7 @@ function TvDisplay() {
         <div className={styles.infoColumn}>
             <div>
                 <div>
-                    <h1>Among Us 2</h1>
+                    <h1>Amidst Us</h1>
                 </div>
                 <div className={styles.playerList}>
                     {
@@ -161,7 +163,24 @@ function TvDisplay() {
                 <AsteroidField className={styles.canvas} onAsteroidClick={() => {}}></AsteroidField>
                 <div className={styles.instructions}>
                     <h2>How to play:</h2>
-                    <span>TODO</span>
+                    <b>Chemist - makes fuel, uses water:</b><br/>
+                    The chemist must communicate with the pilot to fill in the correct<br/>
+                    sequence of hydrogen and oxygen that the pilot has, to generate fuel.<br/>
+                    <br/>
+                    <b>Captain - makes water, uses electricity:</b><br/>
+                    The pilot must shoot asteroids to gather water.<br/>
+                    <br/>
+                    <b>Engineer - makes electricity, uses fuel:</b><br/>
+                    The Engineer must Match sin waves to generate electricity.
+                </div>
+                <div className={styles.log}>
+                    <ul className={styles.ul}>
+                        {
+                            messageLog.map((message, index) => {
+                                return <li key={index} style={{color: message.colorHex}} className={styles.li} dangerouslySetInnerHTML={{__html: message.message}}></li>;
+                            })
+                        }
+                    </ul>
                 </div>
             </div>
         </div>

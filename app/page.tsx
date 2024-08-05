@@ -126,38 +126,23 @@ export default function Home() {
   }
 
   //#endregion
-  
-
-  const playPage = () => {
-    if (userRole === "pilot") {
-      return <CaptainPage onAsteroidClick={handleHarvestAsteroid} fuelAmount={state?.resources.fuel ?? 0} chemSequence={state!.currentSequence}/>
-    } else if (userRole === "chemist") {
-      return <ChemistPage correctSequence={state!.currentSequence} fuelAmount={state?.resources.fuel ?? 0} onSequenceCorrect={onSequenceCorrect} />
-    } else if (userRole === "engineer") {
-      return <EngineerPage onSineMatch={handleSineMatch} waterAmount={state?.resources.water ?? 0}/>
-    }
-  }
-
-  const gameOverPage = () => {
-      return <GameOverPage />
-  }
-
-  const loginPage = () => {
-      return <LoginPage onLoginPressed={onLoginPressed} />
-  }
-
-  const queuePage = () => {
-      return <QueuePage canStart={isGameReady} onStart={onGameStartPressed} />
-  }
 
   return (
     <main>
-            <button onClick={changePage} className={styles.button}>C</button>
-            <button onClick={changeRole} className={styles.button}>R</button>
-            {currentPage === "play" ? playPage() : null}
-            {currentPage === "gameover" ? gameOverPage() : null}
-            {currentPage === "login" ? loginPage() : null}
-            {currentPage === "queue" ? queuePage() : null}
+            {/* <button onClick={changePage} className={styles.button}>C</button> */}
+            {/* <button onClick={changeRole} className={styles.button}>R</button> */}
+            {currentPage === "play" ? (
+                  (userRole === "pilot") ?
+                    <CaptainPage onAsteroidClick={handleHarvestAsteroid} fuelAmount={state?.resources.fuel ?? 0} chemSequence={state!.currentSequence}/>
+                  : (userRole === "chemist") ?
+                    <ChemistPage correctSequence={state!.currentSequence} electricityAmount={state?.resources.electricity ?? 0} onSequenceCorrect={onSequenceCorrect} />
+                  : (userRole === "engineer") ?
+                    <EngineerPage onSineMatch={handleSineMatch} waterAmount={state?.resources.water ?? 0}/>
+                  : <></>
+             ) : null}
+            {currentPage === "gameover" ? <GameOverPage /> : null}
+            {currentPage === "login" ? <LoginPage onLoginPressed={onLoginPressed} /> : null}
+            {currentPage === "queue" ? <QueuePage canStart={isGameReady} onStart={onGameStartPressed} /> : null}
         </main>
   );
 }

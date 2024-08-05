@@ -1,5 +1,5 @@
 // src/SineGraph.js
-import React, { useState, useMemo, useCallback} from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, Tooltip, Legend, CategoryScale } from 'chart.js';
 import debounce from 'lodash.debounce';
@@ -133,10 +133,13 @@ export default function SineGraph(sineMatch) {
     }), [staticData, dynamicData]);
 
     useEffect(() => {
-        if (magnitude === staticData.staticMagnitude ){
-            if (phase === staticData.staticPhase) {
-                if (frequency === staticData.staticFrequency) {
-                    SineMatch()
+        const magnitudeTolerance = 6 * 0.5;
+        const phaseTolerance = 6 * 0.628;
+        const frequencyTolerance = 6 * 0.4;
+        if (Math.abs(magnitude - staticData.staticMagnitude) <= magnitudeTolerance) {
+            if (Math.abs(phase - staticData.staticPhase) <= phaseTolerance) {
+                if (Math.abs(frequency - staticData.staticFrequency) <= frequencyTolerance) {
+                    sineMatch()
                 }
             }
         }
