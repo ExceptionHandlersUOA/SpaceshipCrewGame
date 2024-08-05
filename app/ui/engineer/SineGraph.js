@@ -66,7 +66,7 @@ export default function SineGraph(sineMatch) {
                 },
             ],
         };
-    }, []);
+    }, [length]);
 
     // Dynamic sine wave data
     const dynamicData = useMemo(() => {
@@ -86,7 +86,7 @@ export default function SineGraph(sineMatch) {
                 },
             ],
         };
-    }, [magnitude, phase, frequency]);
+    }, [magnitude, phase, frequency, length]);
 
     // Chart options
   const options = useMemo(() => ({
@@ -161,7 +161,7 @@ export default function SineGraph(sineMatch) {
             console.log("User has matched sine curves!");
             sineMatch();
         }
-    },[magnitude, phase, frequency])
+    },[magnitude, phase, frequency, sineMatch, staticData])
     
     return (
         <div>
