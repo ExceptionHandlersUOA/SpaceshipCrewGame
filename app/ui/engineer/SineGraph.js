@@ -10,10 +10,10 @@ export default function SineGraph(sineMatch) {
     const magChange = 0.25;
     const phaseChange = 0.628;
     const freqChange = 0.4;
-
+    
     const tension = 0.4;
 
-    const defaultTolerance = 2;
+    const defaultTolerance = 0.5;
 
     const start = 0;
     const end = 10;
@@ -26,6 +26,8 @@ export default function SineGraph(sineMatch) {
     const [magnitude, setMagnitude] = useState(magChange * amount);
     const [phase, setPhase] = useState(phaseChange * amount);
     const [frequency, setFrequency] = useState(freqChange * amount);
+
+    const [count, setCount] = useState(0);
 
     const length = Math.floor(range / increment) + 1;
 
@@ -53,6 +55,8 @@ export default function SineGraph(sineMatch) {
         const labels = Array.from({ length }, (_, i) => start + i * increment);
         const values = labels.map(x => staticMagnitude * Math.sin(staticFrequency * (x + staticPhase)));
 
+        console.log(`Current iteration: ${count}`)
+
         return {
             labels,
             datasets: [
@@ -69,9 +73,9 @@ export default function SineGraph(sineMatch) {
             staticPhase,
             staticFrequency
         };
-    }, [start, end, increment, length, tension, magChange, phaseChange, freqChange]);
+    }, [start, end, increment, length, tension, magChange, phaseChange, freqChange, count]);
 
-    // Dynamic sine wave data
+  // Dynamic sine wave data
     const dynamicData = useMemo(() => {
         const labels = Array.from({ length }, (_, i) => start + i * increment);
         const values = labels.map(x => magnitude * Math.sin(frequency * (x + phase)));
@@ -157,13 +161,9 @@ export default function SineGraph(sineMatch) {
         const phaseMatch = phaseDiff <= phaseTolerance;
         const frequencyMatch = frequencyDiff <= frequencyTolerance;      
         
-        console.log("magnitude: " + magnitude + " vs " + magnitudeStatic + " diff " + magnitudeDiff + " match " + magnitudeMatch);
-        console.log("magnitude: " + phase + " vs " + phaseStatic + " diff " + phaseDiff + " match " + phaseMatch);
-        console.log("magnitude: " + frequency + " vs " + frequencyStatic + " diff " + frequencyDiff + " match " + frequencyMatch);
-
         if (magnitudeMatch && phaseMatch && frequencyMatch) {
-            console.log("user has matched sine curves");
-            sineMatch();
+            sineMatch.sineMatch();
+            setCount(count + 1);
         }
     }, [magnitude, defaultTolerance, phase, frequency, sineMatch, staticData, magChange, phaseChange, freqChange])
     
