@@ -9,6 +9,7 @@ import ResourceBar, { Resources } from "../ResourceBar";
 export default function EngineerPage({onSineMatch, waterAmount}: {onSineMatch: any, waterAmount: any}) {
     return (
         <div className={styles.playPage}>
+            <br/>
             <h1>ENGINEER</h1>
             {/* style={{
                 border: '2px solid black',  // Border thickness, style, and color

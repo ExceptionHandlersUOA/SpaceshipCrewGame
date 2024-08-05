@@ -133,16 +133,23 @@ export default function SineGraph(sineMatch) {
     }), [staticData, dynamicData]);
 
     useEffect(() => {
-        const magnitudeTolerance = 6 * 0.5;
-        const phaseTolerance = 6 * 0.628;
-        const frequencyTolerance = 6 * 0.4;
-        if (Math.abs(magnitude - staticData.staticMagnitude) <= magnitudeTolerance) {
-            if (Math.abs(phase - staticData.staticPhase) <= phaseTolerance) {
-                if (Math.abs(frequency - staticData.staticFrequency) <= frequencyTolerance) {
-                    sineMatch()
-                }
-            }
-        }
+        const magnitudeTolerance = 3;
+        const phaseTolerance = 6;
+        const frequencyTolerance = 2;
+
+        const magnitudeDiff = Math.abs(magnitude - staticMagnitude);
+        const phaseDiff = Math.abs(phase - staticPhase);
+        const frequencyDiff = Math.abs(frequency - staticFrequency);
+    
+        const adjustedPhaseDiff = Math.min(phaseDiff, 2 * Math.PI - phaseDiff);
+    
+        if (
+          magnitudeDiff <= magnitudeTolerance &&
+          adjustedPhaseDiff <= phaseTolerance &&
+          frequencyDiff <= frequencyTolerance
+        ) {
+          sineMatch();
+        }    
     },[magnitude, phase, frequency])
     
     return (

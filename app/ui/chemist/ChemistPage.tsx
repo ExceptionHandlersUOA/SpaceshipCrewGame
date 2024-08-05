@@ -24,6 +24,7 @@ export default function ChemistPage({correctSequence, electricityAmount, onSeque
 
     return (
         <div className={styles.page}>
+        <br/>
             <h1>CHEMIST</h1>
             <h2>Input the correct formula!</h2>
             <div className={styles.elementTube}>
