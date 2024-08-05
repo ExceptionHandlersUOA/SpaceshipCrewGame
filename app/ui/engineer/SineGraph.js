@@ -65,6 +65,9 @@ export default function SineGraph(sineMatch) {
                     tension: tension, // Smooth curves
                 },
             ],
+            staticMagnitude,
+            staticPhase,
+            staticFrequency
         };
     }, [start, end, increment, length, tension, magChange, phaseChange, freqChange]);
 
