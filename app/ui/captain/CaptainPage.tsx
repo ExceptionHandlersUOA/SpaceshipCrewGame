@@ -24,14 +24,15 @@ export default function CaptainPage({ onAsteroidClick, fuelAmount, chemSequence 
     
     return (
         <div className={styles.playPage}>
+            <div className={styles.asteroidClass}>
                 <AsteroidField onAsteroidClick={onAsteroidClick} className={styles.canvas}/>
-                {/* <DirectionBar redSection={2} /> */}
-                <TextField text={chemSequence} />
-                <ResourceBar resource={Resources.Electricity} value={fuelAmount} />
-                {/* Debugging buttons for resource bar  */}
-                    {/* <button onClick={increment} className={styles.button}>INCREMENT</button>
-                    <button onClick={decrement} className={styles.button}>DECREMENT</button>  */}
-               
             </div>
+            {/* <DirectionBar redSection={2} /> */}
+            <TextField text={chemSequence} />
+            <ResourceBar resource={Resources.Electricity} value={fuelAmount} />
+            {/* Debugging buttons for resource bar  */}
+            {/* <button onClick={increment} className={styles.button}>INCREMENT</button>
+            <button onClick={decrement} className={styles.button}>DECREMENT</button>  */}
+        </div>
     ); 
 }
