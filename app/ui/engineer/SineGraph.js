@@ -142,7 +142,7 @@ export default function SineGraph(sineMatch) {
         const staticPhase = staticData.staticPhase;
         const staticFrequency = staticData.staticFrequency;
 
-        console.log("static data: " + staticData);
+        console.log(staticData);
 
         console.log("magnitude: " + magnitude + " vs " + staticMagnitude);
         console.log("phase: " + phase + " vs " + staticPhase);
