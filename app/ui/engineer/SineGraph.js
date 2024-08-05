@@ -137,9 +137,9 @@ export default function SineGraph(sineMatch) {
         const phaseTolerance = 6;
         const frequencyTolerance = 2;
 
-        const magnitudeDiff = Math.abs(magnitude - staticMagnitude);
-        const phaseDiff = Math.abs(phase - staticPhase);
-        const frequencyDiff = Math.abs(frequency - staticFrequency);
+        const magnitudeDiff = Math.abs(magnitude - staticData.magnitude);
+        const phaseDiff = Math.abs(phase - staticData.phase);
+        const frequencyDiff = Math.abs(frequency - staticData.frequency);
     
         const adjustedPhaseDiff = Math.min(phaseDiff, 2 * Math.PI - phaseDiff);
     
@@ -149,7 +149,7 @@ export default function SineGraph(sineMatch) {
           frequencyDiff <= frequencyTolerance
         ) {
           sineMatch();
-        }    
+        }
     },[magnitude, phase, frequency])
     
     return (
