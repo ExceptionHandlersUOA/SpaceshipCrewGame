@@ -17,6 +17,7 @@ export default function SineGraph(sineMatch) {
 
     const start = 0;
     const end = 10;
+    const range = end - start;
     const increment = 0.2;
 
     const delay = 10;
@@ -26,20 +27,22 @@ export default function SineGraph(sineMatch) {
     const [phase, setPhase] = useState(phaseChange * amount);
     const [frequency, setFrequency] = useState(freqChange * amount);
 
-    const length = Math.floor((end - start) / increment) + 1;
+    const length = Math.floor(range / increment) + 1;
 
     const debouncedSetMagnitude = useCallback(debounce((value) => {
         setMagnitude(value);
     }, delay), []);
+
     const debouncedSetPhase = useCallback(debounce((value) => {
         setPhase(value);
     }, delay), []);
+
     const debouncedSetFrequency = useCallback(debounce((value) => {
         setFrequency(value);
     }, delay), []);
 
     function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
+        return Math.floor(Math.random() * ((max - min) + 1) + min);
     }
 
     const staticData = useMemo(() => {
@@ -68,7 +71,7 @@ export default function SineGraph(sineMatch) {
     // Dynamic sine wave data
     const dynamicData = useMemo(() => {
         const labels = Array.from({ length }, (_, i) => start + i * increment);
-        const values = labels.map(x => magnitude * Math.sin(frequency * (x + phase)));
+        const values = labels.map(x => staticMagnitude * Math.sin(staticFrequency * (x + staticPhase)));
 
         return {
             labels,
@@ -136,6 +139,12 @@ export default function SineGraph(sineMatch) {
     }), [staticData, dynamicData]);
 
     useEffect(() => {
+        console.log("User has moved the bars!");
+
+        console.log("magnitude: " + magnitude + " vs " + staticData.magnitude);
+        console.log("phase: " + phase + " vs " + staticData.phase);
+        console.log("frequency: " + frequency + " vs " + staticData.frequency);
+
         const magnitudeTolerance = magChange * defaultTolerance;
         const phaseTolerance = phaseChange * defaultTolerance;
         const frequencyTolerance = freqChange * defaultTolerance;
@@ -149,7 +158,7 @@ export default function SineGraph(sineMatch) {
         const frequencyMatch = frequencyDiff <= frequencyTolerance;      
         
         if (magnitudeMatch && phaseMatch && frequencyMatch) {
-            console.log("Matched sine curves!");
+            console.log("User has matched sine curves!");
             sineMatch();
         }
     },[magnitude, phase, frequency])
@@ -163,7 +172,7 @@ export default function SineGraph(sineMatch) {
                 <label >
                     <input
                         type="range"
-                        min="0.5"
+                        min={start * start}
                         max={magChange * end}
                         step={magChange}
                         value={magnitude}
@@ -176,7 +185,7 @@ export default function SineGraph(sineMatch) {
                 <label>
                     <input
                         type="range"
-                        min="0"
+                        min={phaseChange * start}
                         max={phaseChange * end}
                         step={phaseChange}
                         value={phase}
@@ -189,7 +198,7 @@ export default function SineGraph(sineMatch) {
                 <label>
                     <input
                         type="range"
-                        min="0"
+                        min={freqChange * start}
                         max={freqChange * end}
                         step={freqChange}
                         value={frequency}
