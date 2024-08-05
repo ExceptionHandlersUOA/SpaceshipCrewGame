@@ -32,9 +32,9 @@ export default function SineGraph(sineMatch) {
 
     const staticData = useMemo(() => {
         // random integers between 0 and 10
-        const randOne = getRandomInt(0, 10);
-        const randTwo = getRandomInt(0, 10);
-        const randThree = getRandomInt(0, 10);
+        const randOne = getRandomInt(1, 10);
+        const randTwo = getRandomInt(1, 10);
+        const randThree = getRandomInt(1, 10);
 
         const staticMagnitude = 0.5 + 0.25*randOne
         const staticPhase = 0 + 0.628*randTwo
