@@ -20,12 +20,13 @@ export default function SineGraph(sineMatch) {
     const increment = 0.2;
 
     const delay = 10;
+    const amount = 5;
 
-    const [magnitude, setMagnitude] = useState(magChange);
-    const [phase, setPhase] = useState(phaseChange);
-    const [frequency, setFrequency] = useState(freqChange);
+    const [magnitude, setMagnitude] = useState(magChange * amount);
+    const [phase, setPhase] = useState(phaseChange * amount);
+    const [frequency, setFrequency] = useState(freqChange * amount);
 
-    const length = Math.floor((end - start) / increment);
+    const length = Math.floor((end - start) / increment) + 1;
 
     const debouncedSetMagnitude = useCallback(debounce((value) => {
         setMagnitude(value);
@@ -42,9 +43,9 @@ export default function SineGraph(sineMatch) {
     }
 
     const staticData = useMemo(() => {
-        const staticMagnitude = magChange * getRandomInt(start + 1, end)
-        const staticPhase = phaseChange * getRandomInt(start + 1, end)
-        const staticFrequency = freqChange * getRandomInt(start + 1, end)
+        const staticMagnitude = magChange * getRandomInt(start + 1, end - 1)
+        const staticPhase = phaseChange * getRandomInt(start + 1, end - 1)
+        const staticFrequency = freqChange * getRandomInt(start + 1, end - 1)
 
         const labels = Array.from({ length }, (_, i) => start + i * increment);
         const values = labels.map(x => staticMagnitude * Math.sin(staticFrequency * (x + staticPhase)));
@@ -148,6 +149,7 @@ export default function SineGraph(sineMatch) {
         const frequencyMatch = frequencyDiff <= frequencyTolerance;      
         
         if (magnitudeMatch && phaseMatch && frequencyMatch) {
+            console.log("Matched sine curves!");
             sineMatch();
         }
     },[magnitude, phase, frequency])
