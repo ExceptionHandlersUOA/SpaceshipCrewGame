@@ -41,11 +41,11 @@ export default function SineGraph(sineMatch) {
         setFrequency(value);
     }, delay), []);
 
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * ((max - min) + 1) + min);
-    }
-
     const staticData = useMemo(() => {
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * ((max - min) + 1) + min);
+        }
+        
         const staticMagnitude = magChange * getRandomInt(start + 1, end - 1)
         const staticPhase = phaseChange * getRandomInt(start + 1, end - 1)
         const staticFrequency = freqChange * getRandomInt(start + 1, end - 1)
@@ -66,7 +66,7 @@ export default function SineGraph(sineMatch) {
                 },
             ],
         };
-    }, [start, end, increment, length, tension]);
+    }, [start, end, increment, length, tension, magChange, phaseChange, freqChange]);
 
     // Dynamic sine wave data
     const dynamicData = useMemo(() => {
@@ -131,7 +131,6 @@ export default function SineGraph(sineMatch) {
         },
     }), []);
 
-
     // Combine both datasets
     const chartData = useMemo(() => ({
         ...staticData,
@@ -139,9 +138,15 @@ export default function SineGraph(sineMatch) {
     }), [staticData, dynamicData]);
 
     useEffect(() => {
-        console.log("magnitude: " + magnitude + " vs " + staticData.staticMagnitude);
-        console.log("phase: " + phase + " vs " + staticData.staticPhase);
-        console.log("frequency: " + frequency + " vs " + staticData.staticFrequency);
+        const staticMagnitude = staticData.staticMagnitude;
+        const staticPhase = staticData.staticPhase;
+        const staticFrequency = staticData.staticFrequency;
+
+        console.log("static data: " + staticData);
+
+        console.log("magnitude: " + magnitude + " vs " + staticMagnitude);
+        console.log("phase: " + phase + " vs " + staticPhase);
+        console.log("frequency: " + frequency + " vs " + staticFrequency);
 
         const magnitudeTolerance = magChange * defaultTolerance;
         const phaseTolerance = phaseChange * defaultTolerance;
@@ -159,7 +164,7 @@ export default function SineGraph(sineMatch) {
             console.log("user has matched sine curves");
             sineMatch();
         }
-    }, [magnitude, phase, frequency, sineMatch, staticData])
+    }, [magnitude, defaultTolerance, phase, frequency, sineMatch, staticData, magChange, phaseChange, freqChange])
     
     return (
         <div>
