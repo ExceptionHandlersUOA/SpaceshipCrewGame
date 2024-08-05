@@ -71,7 +71,7 @@ export default function SineGraph(sineMatch) {
     // Dynamic sine wave data
     const dynamicData = useMemo(() => {
         const labels = Array.from({ length }, (_, i) => start + i * increment);
-        const values = labels.map(x => staticMagnitude * Math.sin(staticFrequency * (x + staticPhase)));
+        const values = labels.map(x => magnitude * Math.sin(frequency * (x + phase)));
 
         return {
             labels,
