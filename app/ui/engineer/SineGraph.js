@@ -57,36 +57,36 @@ export default function SineGraph(sineMatch) {
             labels,
             datasets: [
                 {
-                label: 'Static Sine Wave',
-                data: values,
-                borderColor: 'rgba(255, 204, 0, 0.5)',
-                backgroundColor: 'rgba(255, 204, 0, 0.2)',
-                pointRadius: 0,
-                tension: tension, // Smooth curves
+                    label: 'Static Sine Wave',
+                    data: values,
+                    borderColor: 'rgba(255, 204, 0, 0.5)',
+                    backgroundColor: 'rgba(255, 204, 0, 0.2)',
+                    pointRadius: 0,
+                    tension: tension, // Smooth curves
                 },
             ],
         };
-    }, [length]);
+    }, [start, end, increment, length, tension]);
 
     // Dynamic sine wave data
     const dynamicData = useMemo(() => {
         const labels = Array.from({ length }, (_, i) => start + i * increment);
         const values = labels.map(x => magnitude * Math.sin(frequency * (x + phase)));
-
+        
         return {
             labels,
             datasets: [
                 {
-                label: 'Dynamic Sine Wave',
-                data: values,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                tension: tension, // Smooth curves
-                pointRadius: 0,
+                    label: 'Dynamic Sine Wave',
+                    data: values,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: tension, // Smooth curves
+                    pointRadius: 0,
                 },
             ],
         };
-    }, [magnitude, phase, frequency, length]);
+    }, [start, increment, magnitude, phase, frequency, length, tension]);
 
     // Chart options
   const options = useMemo(() => ({
@@ -139,11 +139,9 @@ export default function SineGraph(sineMatch) {
     }), [staticData, dynamicData]);
 
     useEffect(() => {
-        console.log("User has moved the bars!");
-
-        console.log("magnitude: " + magnitude + " vs " + staticData.magnitude);
-        console.log("phase: " + phase + " vs " + staticData.phase);
-        console.log("frequency: " + frequency + " vs " + staticData.frequency);
+        console.log("magnitude: " + magnitude + " vs " + staticData.staticMagnitude);
+        console.log("phase: " + phase + " vs " + staticData.staticPhase);
+        console.log("frequency: " + frequency + " vs " + staticData.staticFrequency);
 
         const magnitudeTolerance = magChange * defaultTolerance;
         const phaseTolerance = phaseChange * defaultTolerance;
@@ -158,10 +156,10 @@ export default function SineGraph(sineMatch) {
         const frequencyMatch = frequencyDiff <= frequencyTolerance;      
         
         if (magnitudeMatch && phaseMatch && frequencyMatch) {
-            console.log("User has matched sine curves!");
+            console.log("user has matched sine curves");
             sineMatch();
         }
-    },[magnitude, phase, frequency, sineMatch, staticData])
+    }, [magnitude, phase, frequency, sineMatch, staticData])
     
     return (
         <div>
