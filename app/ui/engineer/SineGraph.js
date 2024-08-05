@@ -141,28 +141,26 @@ export default function SineGraph(sineMatch) {
     }), [staticData, dynamicData]);
 
     useEffect(() => {
-        const staticMagnitude = staticData.staticMagnitude;
-        const staticPhase = staticData.staticPhase;
-        const staticFrequency = staticData.staticFrequency;
-
-        console.log(staticData);
-
-        console.log("magnitude: " + magnitude + " vs " + staticMagnitude);
-        console.log("phase: " + phase + " vs " + staticPhase);
-        console.log("frequency: " + frequency + " vs " + staticFrequency);
+        const magnitudeStatic = staticData.staticMagnitude;
+        const phaseStatic = staticData.staticPhase;
+        const frequencyStatic = staticData.staticFrequency;
 
         const magnitudeTolerance = magChange * defaultTolerance;
         const phaseTolerance = phaseChange * defaultTolerance;
         const frequencyTolerance = freqChange * defaultTolerance;
         
-        const magnitudeDiff = Math.abs(magnitude - staticData.magnitude);
-        const phaseDiff = Math.abs(phase - staticData.phase);
-        const frequencyDiff = Math.abs(frequency - staticData.frequency);      
+        const magnitudeDiff = Math.abs(magnitude - magnitudeStatic);
+        const phaseDiff = Math.abs(phase - phaseStatic);
+        const frequencyDiff = Math.abs(frequency - frequencyStatic);      
 
         const magnitudeMatch = magnitudeDiff <= magnitudeTolerance;
         const phaseMatch = phaseDiff <= phaseTolerance;
         const frequencyMatch = frequencyDiff <= frequencyTolerance;      
         
+        console.log("magnitude: " + magnitude + " vs " + magnitudeStatic + " diff " + magnitudeDiff + " match " + magnitudeMatch);
+        console.log("magnitude: " + phase + " vs " + phaseStatic + " diff " + phaseDiff + " match " + phaseMatch);
+        console.log("magnitude: " + frequency + " vs " + frequencyStatic + " diff " + frequencyDiff + " match " + frequencyMatch);
+
         if (magnitudeMatch && phaseMatch && frequencyMatch) {
             console.log("user has matched sine curves");
             sineMatch();
